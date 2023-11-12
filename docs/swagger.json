@@ -157,6 +157,12 @@
                 },
                 "translated-text": {
                     "type": "string"
+                },
+                "word_choices": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/libmozhi.WordChoices"
+                    }
                 }
             }
         },
@@ -167,6 +173,26 @@
                     "type": "string"
                 },
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "libmozhi.WordChoices": {
+            "type": "object",
+            "properties": {
+                "examples_source": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "examples_target": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "word": {
                     "type": "string"
                 }
             }

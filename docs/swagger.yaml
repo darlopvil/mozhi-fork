@@ -11,12 +11,29 @@ definitions:
         type: string
       translated-text:
         type: string
+      word_choices:
+        items:
+          $ref: '#/definitions/libmozhi.WordChoices'
+        type: array
     type: object
   libmozhi.List:
     properties:
       id:
         type: string
       name:
+        type: string
+    type: object
+  libmozhi.WordChoices:
+    properties:
+      examples_source:
+        items:
+          type: string
+        type: array
+      examples_target:
+        items:
+          type: string
+        type: array
+      word:
         type: string
     type: object
 info:
