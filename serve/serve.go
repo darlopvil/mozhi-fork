@@ -2,6 +2,7 @@ package serve
 
 import (
 	"html/template"
+	"strings"
 	"log"
 	"net/http"
 	"os"
@@ -37,9 +38,8 @@ func Serve(port string) {
 	engine := html.NewFileSystem(views, ".html")
 
 	engine.AddFunc(
-		// Add unescape function. This is needed to render HTML from Markdown.
-		"unescape", func(s string) template.HTML {
-			return template.HTML(s)
+		"newlinetobr", func(s string) template.HTML {
+			return template.HTML(strings.ReplaceAll(strings.ReplaceAll(s, "\n", "<br>"), "\r", ""))
 		},
 	)
 

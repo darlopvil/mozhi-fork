@@ -7,7 +7,7 @@ replace github.com/OwO-Network/gdeeplx => github.com/gi-yt/gdeeplx v0.0.0-202308
 //replace codeberg.org/aryak/libmozhi => /home/arya/projects/mozhi/libmozhi
 
 require (
-	codeberg.org/aryak/libmozhi v0.0.0-20231129140947-7c9580a1ea2d
+	codeberg.org/aryak/libmozhi v0.0.0-20231129152229-c0d8dfbccd68
 	github.com/gofiber/fiber/v2 v2.51.0
 	github.com/gofiber/swagger v0.1.14
 	github.com/gofiber/template v1.8.0
