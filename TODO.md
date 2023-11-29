@@ -1,5 +1,4 @@
 # TODO
-- Make detectlanguage swap the text as well
 - Interactive/Step-by-step CLI
 - Ability for user to choose engines they want to use
 - Finish simplytranslate-py compatible API for translations
