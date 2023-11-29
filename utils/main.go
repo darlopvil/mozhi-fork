@@ -1,10 +1,10 @@
 package utils
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"regexp"
-	"os"
 	"codeberg.org/aryak/libmozhi"
+	"github.com/gofiber/fiber/v2"
+	"os"
+	"regexp"
 )
 
 func GetQueryOrFormValue(c *fiber.Ctx, key string) string {
