@@ -63,6 +63,8 @@
       Source Text:
       <textarea autofocus class="item" id="input" name="text" dir="auto" placeholder="Enter Text Here">
 {{ .OriginalText }}</textarea>
+      {{if .Translation.SourceTransliteration}}
+      <br>Transliteration: {{newlinetobr .Translation.SourceTransliteration}}{{end}}
       {{if .TtsFrom}}
       <br>
       <audio controls>
@@ -80,8 +82,8 @@
 {{.OutputText}}</textarea>
       {{if .AutoDetect}}
       <br>Detected Language: {{.AutoDetect}}{{end}}
-      {{if .Translation.Transliteration}}
-      <br>Transliteration: {{newlinetobr .Translation.Transliteration}}{{end}}
+      {{if .Translation.TargetTransliteration}}
+      <br>Transliteration: {{newlinetobr .Translation.TargetTransliteration}}{{end}}
       {{if $.TtsTo}}
       <br>
       <audio controls>
@@ -97,8 +99,8 @@
 {{.Translation.OutputText}}</textarea>
       {{if .Translation.AutoDetect}}
       <br>Detected Language: {{.Translation.AutoDetect}}{{end}}
-      {{if .Translation.Transliteration}}
-      <br>Transliteration: {{newlinetobr .Translation.Transliteration}}{{end}}
+      {{if .Translation.TargetTransliteration}}
+      <br>Transliteration: {{newlinetobr .Translation.TargetTransliteration}}{{end}}
       {{if .TtsTo}}
       <br>
       <audio controls>

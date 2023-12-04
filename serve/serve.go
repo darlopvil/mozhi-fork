@@ -2,11 +2,11 @@ package serve
 
 import (
 	"html/template"
-	"strings"
 	"log"
 	"net/http"
 	"os"
 	"runtime"
+	"strings"
 
 	"codeberg.org/aryak/libmozhi"
 	_ "codeberg.org/aryak/mozhi/docs"

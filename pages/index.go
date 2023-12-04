@@ -63,9 +63,8 @@ func HandleIndex(c *fiber.Ctx) error {
 			translationExists = true
 		}
 		if engine == "google" || engine == "reverso" {
-			if from == "auto" {
-				//ttsFrom = "/api/tts?lang="+translation.AutoDetect+"&engine="+engine+"&text="+originalText
-				ttsFrom = ""
+			if from == "auto" && translation.AutoDetect != "" {
+				ttsFrom = "/api/tts?lang=" + translation.AutoDetect + "&engine=" + engine + "&text=" + originalText
 			} else {
 				ttsFrom = "/api/tts?lang=" + from + "&engine=" + engine + "&text=" + originalText
 			}
