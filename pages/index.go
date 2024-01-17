@@ -45,6 +45,12 @@ func HandleIndex(c *fiber.Ctx) error {
 	originalText := utils.GetQueryOrFormValue(c, "text")
 	to := utils.GetQueryOrFormValue(c, "to")
 	from := utils.GetQueryOrFormValue(c, "from")
+	if from == "" {
+		from = utils.GetQueryOrFormValue(c, "sl")
+	}
+	if to == "" {
+		to = utils.GetQueryOrFormValue(c, "tl")
+	}
 
 	var translation libmozhi.LangOut
 	var translationExists bool
