@@ -82,8 +82,8 @@
 {{.OutputText}}</textarea>
       {{if .AutoDetect}}
       <br>Detected Language: {{.AutoDetect}}{{end}}
-      {{if .Translation.TargetTransliteration}}
-      <br>Transliteration: {{newlinetobr .Translation.TargetTransliteration}}{{end}}
+      {{if .TargetTransliteration}}
+      <br>Transliteration: {{newlinetobr .TargetTransliteration}}{{end}}
       {{if $.TtsTo}}
       <br>
       <audio controls>
