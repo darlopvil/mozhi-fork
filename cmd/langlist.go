@@ -33,7 +33,7 @@ var langlistCmd = &cobra.Command{
 				fmt.Println(err)
 			}
 			for _, idx := range idxs {
-				if raw == true {
+				if raw {
 					fmt.Println(list[idx].Id)
 				} else {
 					fmt.Println("Selected Language:", list[idx].Id, "("+list[idx].Name+")")

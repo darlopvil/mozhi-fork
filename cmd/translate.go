@@ -17,6 +17,33 @@ var (
 	rawjson bool
 )
 
+func printEngineResult(result libmozhi.LangOut, printPlaceHolderAndEngineName bool) {
+	if printPlaceHolderAndEngineName {
+		fmt.Println("-----------------------------------")
+		fmt.Println("Engine: " + result.Engine)
+	}
+
+	fmt.Println("Translated Text: " + result.OutputText)
+	if source == "auto" {
+		fmt.Println("Detected Language: " + result.AutoDetect)
+	}
+	fmt.Println("Source Language: " + result.SourceLang)
+	fmt.Println("Target Language: " + result.TargetLang)
+
+	if printPlaceHolderAndEngineName {
+		fmt.Println("-----------------------------------")
+	}
+}
+
+func printRaw(data interface{}) {
+	j, err := json.Marshal(data)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(string(j))
+	}
+}
+
 var translateCmd = &cobra.Command{
 	Use:   "translate",
 	Short: "Translate.",
@@ -24,44 +51,21 @@ var translateCmd = &cobra.Command{
 		if engine == "all" {
 			data := libmozhi.TranslateAll(dest, source, query)
 			if rawjson {
-				j, err := json.Marshal(data)
-				if err != nil {
-					fmt.Println(err)
-				} else {
-					fmt.Println(string(j))
-				}
+				printRaw(data)
 			} else {
-				for i := 0; i < len(data); i++ {
-					fmt.Println("-----------------------------------")
-					fmt.Println("Engine: " + data[i].Engine)
-					fmt.Println("Translated Text: " + data[i].OutputText)
-					if source == "auto" {
-						fmt.Println("Detected Language: " + data[i].AutoDetect)
-					}
-					fmt.Println("Source Language: " + data[i].SourceLang)
-					fmt.Println("Target Language: " + data[i].TargetLang)
+				for _, result := range data {
+					printEngineResult(result, true)
 				}
-				fmt.Println("-----------------------------------")
 			}
 		} else {
 			data, err := libmozhi.Translate(engine, dest, source, query)
 			if rawjson {
-				j, err := json.Marshal(data)
-				if err != nil {
-					fmt.Println(err)
-				} else {
-					fmt.Println(string(j))
-				}
+				printRaw(data)
 			} else {
 				if err != nil {
 					fmt.Println(err)
 				} else {
-					fmt.Println("Translated Text: " + data.OutputText)
-					if source == "auto" {
-						fmt.Println("Detected Language: " + data.AutoDetect)
-					}
-					fmt.Println("Source Language: " + data.SourceLang)
-					fmt.Println("Target Language: " + data.TargetLang)
+					printEngineResult(data, false)
 				}
 			}
 		}
