@@ -82,20 +82,14 @@ func HandleTranslate(c *fiber.Ctx) error {
 	if engine == "" || from == "" || to == "" || text == "" {
 		return fiber.NewError(fiber.StatusBadRequest, "from, to, engine, text are required query strings.")
 	}
-	var dataarr []libmozhi.LangOut
-	var data libmozhi.LangOut
-	var err error
 	if engine == "all" {
-		dataarr = libmozhi.TranslateAll(to, from, text)
+		dataarr := libmozhi.TranslateAll(to, from, text)
+		return c.JSON(dataarr)
 	} else {
-		data, err = libmozhi.Translate(engine, to, from, text)
+		data, err := libmozhi.Translate(engine, to, from, text)
 		if err != nil {
 			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 		}
-	}
-	if engine == "all" {
-		return c.JSON(dataarr)
-	} else {
 		return c.JSON(data)
 	}
 }

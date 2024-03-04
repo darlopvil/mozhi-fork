@@ -7,6 +7,9 @@ import (
 	"regexp"
 )
 
+var nonAlphanumericRegex = regexp.MustCompile(`[^a-zA-Z]+`)
+var nonAlphaRegex = regexp.MustCompile(`[^a-zA-Z0-9]+`)
+
 func GetQueryOrFormValue(c *fiber.Ctx, key string) string {
 	if c.Method() == "POST" {
 		return c.FormValue(key)
@@ -16,15 +19,12 @@ func GetQueryOrFormValue(c *fiber.Ctx, key string) string {
 }
 
 func EnvTrueNoExist(env string) bool {
-	if _, ok := os.LookupEnv(env); ok == false || os.Getenv(env) == "true" {
-		return true
-	}
-	return false
+	_, envFound := os.LookupEnv(env)
+
+	return !envFound || os.Getenv(env) == "true"
 }
 
 func Sanitize(str string, strip string) string {
-	nonAlphanumericRegex := regexp.MustCompile(`[^a-zA-Z]+`)
-	nonAlphaRegex := regexp.MustCompile(`[^a-zA-Z0-9]+`)
 	if strip == "alpha" {
 		return nonAlphaRegex.ReplaceAllString(str, "")
 	} else if strip == "alphanumeric" {

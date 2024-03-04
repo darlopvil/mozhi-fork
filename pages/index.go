@@ -12,7 +12,7 @@ import (
 func langListMerge(engines map[string]string) ([]libmozhi.List, []libmozhi.List) {
 	sl := []libmozhi.List{}
 	tl := []libmozhi.List{}
-	for key, _ := range engines {
+	for key := range engines {
 		temp, _ := libmozhi.LangList(key, "sl")
 		temp2, _ := libmozhi.LangList(key, "tl")
 		sl = append(sl, temp...)
