@@ -1,0 +1,20 @@
+[
+    {
+        "country": "India",
+        "link": "https://mozhi.aryak.me",
+        "cloudflare": false,
+        "host": "Airtel"
+    },
+    {
+        "country": "Canada",
+        "link": "https://translate.bus-hit.me",
+        "cloudflare": false,
+        "host": "Oracle"
+    },
+    {
+        "country": "USA",
+        "link": "https://nyc1.mz.ggtyler.dev",
+        "cloudflare": false,
+        "host": "Royale Hosting"
+    }
+]

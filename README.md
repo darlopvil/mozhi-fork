@@ -70,6 +70,7 @@ These envvars turn off/on engines. By default all of them are enabled.
 | [mozhi.aryak.me](https://mozhi.aryak.me) | No | India | Airtel |
 | [translate.bus-hit.me](https://translate.bus-hit.me) | No | Canada | Oracle |
 | [nyc1.mz.ggtyler.dev](https://nyc1.mz.ggtyler.dev) | No | USA | Royale Hosting |
+| [translate.projectsegfau.lt](https://translate.projectsegfau.lt) | No | Germany / USA / India | Avoro / Racknerd / Airtel |
 
 ## Features
 - An all mode where the responses of all supported engines will be shown.
