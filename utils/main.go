@@ -7,8 +7,8 @@ import (
 	"regexp"
 )
 
-var nonAlphanumericRegex = regexp.MustCompile(`[^a-zA-Z]+`)
-var nonAlphaRegex = regexp.MustCompile(`[^a-zA-Z0-9]+`)
+var nonAlphanumericRegex = regexp.MustCompile(`[^a-zA-Z,]+`)
+var nonAlphaRegex = regexp.MustCompile(`[^a-zA-Z0-9,]+`)
 
 func GetQueryOrFormValue(c *fiber.Ctx, key string) string {
 	if c.Method() == "POST" {

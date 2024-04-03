@@ -2,6 +2,7 @@ package pages
 
 import (
 	"codeberg.org/aryak/libmozhi"
+	"strings"
 	"codeberg.org/aryak/mozhi/utils"
 	"github.com/gofiber/fiber/v2"
 )
@@ -84,6 +85,13 @@ func HandleTranslate(c *fiber.Ctx) error {
 	}
 	if engine == "all" {
 		dataarr := libmozhi.TranslateAll(to, from, text)
+		return c.JSON(dataarr)
+	} else if strings.Contains(engine, ",") == true {
+		engineArr := strings.Split(engine, ",")
+		dataarr, err := libmozhi.TranslateSome(engineArr, to, from, text)
+		if err != nil {
+			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		}
 		return c.JSON(dataarr)
 	} else {
 		data, err := libmozhi.Translate(engine, to, from, text)
