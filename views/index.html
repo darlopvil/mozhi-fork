@@ -116,7 +116,7 @@
           Copy the translation
         </button>
         {{end}}
-        {{ if and .Engine .From .To .OriginalText }}<p><a class="button" style="color:#010000; text-decoration: none;"
+        {{ if and .Engine .From .To .OriginalText }}<p><a id="url" class="button" style="color:#010000; text-decoration: none;" onclick="copyLinkToClipboard(event)"
             href="/?engine={{.Engine}}&from={{.From}}&to={{.To}}&text={{.OriginalText}}">Copy translation link</a></p>
         {{end}}
         {{if .TranslationExists}}
@@ -148,6 +148,35 @@
       copyText.select();
       copyText.setSelectionRange(0, 99999); // This is for mobile devices.
       document.execCommand("copy");
+    }
+    function copyLinkToClipboard(event) {
+      // Get the text of the link based on the id. 
+      var copyText = document.getElementById("url");
+      var text = copyText.href;
+      // Create an input element, set the value to the link, append it to the body, select the text, copy it to the clipboard, then remove the input element.
+      // This is the only way to copy text to the clipboard in a browser, you could consider this a hack but yeah... it works.
+      var input = document.createElement("input");
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      event.preventDefault();
+      // If failed to copy to clipboard, alert the user
+      if (!document.execCommand("copy")) {
+        alert("Failed to copy the link to the clipboard");
+      }
+      // Otherwise, let the user know it successfully copied with a small css animation by switching to green bg then back to the original color.
+      else {
+        copyText.style.backgroundColor = "#4CAF50";
+        // Change the text to "Copied!" for a second"
+        copyText.innerText = "Copied!";
+        setTimeout(function () {
+          copyText.style.backgroundColor = "#f57c00";
+          // Change the text back to "Copy translation link" after a second
+          copyText.innerText = "Copy translation link";
+        }, 1000);
+      }
     }
   </script>
 </main>
