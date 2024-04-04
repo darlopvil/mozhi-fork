@@ -27,10 +27,16 @@ func HandleIndex(c *fiber.Ctx) error {
 	for engine := range engines {
 		enginesAsArray = append(enginesAsArray, engine)
 	}
-
+	engineCookie := c.Cookies("engine")
+	fromCookie := c.Cookies("from")
+	toCookie := c.Cookies("to")
 	var engine = utils.GetQueryOrFormValue(c, "engine")
 	if engine == "" || !slices.Contains(enginesAsArray, engine) {
-		engine = "google"
+		if engineCookie != "" {
+			engine = engineCookie
+		} else {
+			engine = "google"
+		}
 	}
 
 	var sourceLanguages []libmozhi.List
@@ -47,9 +53,15 @@ func HandleIndex(c *fiber.Ctx) error {
 	from := utils.GetQueryOrFormValue(c, "from")
 	if from == "" {
 		from = utils.GetQueryOrFormValue(c, "sl")
+		if from == "" && fromCookie != "" {
+			from = fromCookie
+		}
 	}
 	if to == "" {
 		to = utils.GetQueryOrFormValue(c, "tl")
+		if to == "" && toCookie != "" {
+			to = toCookie
+		}
 	}
 
 	var translation libmozhi.LangOut
@@ -87,6 +99,22 @@ func HandleIndex(c *fiber.Ctx) error {
 	}
 	if defaultLangTarget == "" {
 		defaultLangTarget = "en"
+	}
+	cookie := new(fiber.Cookie)
+	cookie.Name = "engine"
+	cookie.Value = engine
+	c.Cookie(cookie)
+	if from != "" {
+		cookie := new(fiber.Cookie)
+		cookie.Name = "from"
+		cookie.Value = from
+		c.Cookie(cookie)
+	}
+	if to != "" {
+		cookie := new(fiber.Cookie)
+		cookie.Name = "to"
+		cookie.Value = to
+		c.Cookie(cookie)
 	}
 	return c.Render("index", fiber.Map{
 		"Engine":            engine,
