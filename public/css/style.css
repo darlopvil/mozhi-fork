@@ -26,6 +26,7 @@ footer {
   width: 95%;
   border-top: 1px solid #b2b2b2;
 }
+
 footer p {
   margin: 0.2em 0 0.2em 0;
 }
@@ -34,6 +35,7 @@ a {
   color: #f57c00;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
@@ -46,10 +48,12 @@ nav {
   justify-content: flex-end;
   gap: 1rem;
 }
+
 nav li {
   display: inline-block no;
   margin-right: 20px;
 }
+
 .navlogo {
   width: 75px;
   height: 75px;
@@ -65,6 +69,7 @@ textarea {
   border-color: #9d9d9d;
   color: #f8f9fa;
 }
+
 textarea:focus {
   border-color: #e5ebff;
   outline: 1px solid #e5ebff;
@@ -97,6 +102,7 @@ button {
   border-radius: 4px;
   background: #f57c00;
 }
+
 button:hover {
   box-shadow: 5px 5px 0px 0px rgba(245, 124, 0, 0.25);
   cursor: pointer;
@@ -114,6 +120,7 @@ button:hover {
   border-radius: 4px;
   background: #f57c00;
 }
+
 .button:hover {
   box-shadow: 5px 5px 0px 0px rgba(245, 124, 0, 0.25);
   cursor: pointer;
@@ -124,6 +131,7 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
 }
+
 .wrap.languages {
   flex-wrap: nowrap;
   margin-bottom: 20px;
@@ -132,10 +140,12 @@ button:hover {
 .language {
   margin: 0px 10px;
 }
+
 .item {
   width: 100%;
   height: 220px;
 }
+
 .item-wrapper {
   display: block;
   width: 90%;
@@ -194,8 +204,10 @@ button:hover {
   border-top: none;
   border-radius: 4px;
   border-left: 2px solid #f57c00;
+  /* The rgba is the same value as above, but with a 0.25 opacity */
   box-shadow: 2px 2px 0px 0px rgba(245, 124, 0, 0.25);
 }
+
 .center-area {
   display: flex;
   justify-content: space-around;
@@ -211,4 +223,59 @@ button:hover {
   justify-content: center;
   text-align: center;
   margin: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  .options {
+    background-color: #FFEDD5;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .options li:hover {
+    background-color: #f0f0f0;
+  }
+
+  .selected-option {
+    border: 1px solid #888888;
+    color: #000;
+  }
+
+  /* Theming for buttons and text areas*/
+  textarea {
+    border: 2px solid #888888;
+    background-color: #fff4e6;
+    border-color: #9d9d9d;
+    color: #000;
+  }
+
+  textarea:focus {
+    border-color: #261f1e;
+    outline: 1px solid #261f1e;
+  }
+
+  select,
+  .nice-select,
+  .nice-select-dropdown,
+  .nice-select-search {
+    background-color: #fff2e2;
+    color: #2f2f2f;
+  }
+
+  body {
+    background-color: #FFEDD5;
+    color: #000;
+  }
+
+  button {
+    color: #fbe9e7;
+  }
+
+  header {
+    border-bottom: 1px solid #b2b2b2;
+  }
+
+  footer {
+    border-top: 1px solid #b2b2b2;
+  }
 }
