@@ -45,6 +45,9 @@ Mozhi makes use of swagger (using the fiber middleware) to manage the documentat
 
 You can find it in /api/swagger of any instance ([example](https://mozhi.aryak.me/api/swagger/index.html)).
 
+## Why does Reverso not work?
+Reverso sometimes blocks IPs of servers hosting mozhi, and since it doesn't have IPv6, an IP Rotator won't be viable. For more information, check out [#27](https://codeberg.org/aryak/mozhi/issues/27)
+
 ## Configuration
 Features of Mozhi can be customized and toggled on/off using Environment Variables.
 
