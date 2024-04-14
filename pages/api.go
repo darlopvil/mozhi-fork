@@ -2,9 +2,10 @@ package pages
 
 import (
 	"codeberg.org/aryak/libmozhi"
-	"strings"
 	"codeberg.org/aryak/mozhi/utils"
+	"encoding/base64"
 	"github.com/gofiber/fiber/v2"
+	"strings"
 )
 
 // HandleSourceLanguages godoc
@@ -100,6 +101,34 @@ func HandleTranslate(c *fiber.Ctx) error {
 		}
 		return c.JSON(data)
 	}
+}
+
+// HandleImg godoc
+//
+//	@Summary		Translate an image
+//	@Description	When engine is set to all, it will return an array of libmozhi.LangOut.
+//	@Param			engine	query		string	true	"Engine name"
+//	@Param			from	query		string	true	"Source language"
+//	@Param			to		query		string	true	"Target language"
+//	@Param			image	query		string	true	"PNG image in base64 format"
+//	@Success		200		{object}	libmozhi.ImgOut
+//	@Router			/api/image [post]
+func HandleImg(c *fiber.Ctx) error {
+	engine := utils.Sanitize(utils.GetQueryOrFormValue(c, "engine"), "alpha")
+	from := utils.Sanitize(utils.GetQueryOrFormValue(c, "from"), "alpha")
+	to := utils.Sanitize(utils.GetQueryOrFormValue(c, "to"), "alpha")
+	image := utils.GetQueryOrFormValue(c, "image")
+	if engine == "" || from == "" || to == "" || image == "" {
+		return fiber.NewError(fiber.StatusBadRequest, "from, to, engine, image are required query strings.")
+	}
+	if _, err := base64.StdEncoding.DecodeString(image); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, "Invalid base64 image")
+	}
+	data, err := libmozhi.ImageGoogle(to, from, image)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(data)
 }
 
 // HandleEngines godoc

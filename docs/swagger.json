@@ -21,6 +21,50 @@
                 }
             }
         },
+        "/api/image": {
+            "post": {
+                "description": "When engine is set to all, it will return an array of libmozhi.LangOut.",
+                "summary": "Translate an image",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Engine name",
+                        "name": "engine",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Source language",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Target language",
+                        "name": "to",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "PNG image in base64 format",
+                        "name": "image",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/libmozhi.ImgOut"
+                        }
+                    }
+                }
+            }
+        },
         "/api/source_languages": {
             "get": {
                 "summary": "Show list of available source languages for engine",
@@ -140,6 +184,29 @@
         }
     },
     "definitions": {
+        "libmozhi.ImgOut": {
+            "type": "object",
+            "properties": {
+                "sourceB64": {
+                    "type": "string"
+                },
+                "sourceLang": {
+                    "type": "string"
+                },
+                "sourceTextParsed": {
+                    "type": "string"
+                },
+                "targetLang": {
+                    "type": "string"
+                },
+                "translatedImgB64": {
+                    "type": "string"
+                },
+                "translatedTextParsed": {
+                    "type": "string"
+                }
+            }
+        },
         "libmozhi.LangOut": {
             "type": "object",
             "properties": {
@@ -152,7 +219,13 @@
                 "source_language": {
                     "type": "string"
                 },
+                "source_transliteration": {
+                    "type": "string"
+                },
                 "target_language": {
+                    "type": "string"
+                },
+                "target_transliteration": {
                     "type": "string"
                 },
                 "translated-text": {

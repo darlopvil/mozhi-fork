@@ -87,6 +87,7 @@ func Serve(port string) {
 
 	api := app.Group("/api")
 	api.All("/translate", pages.HandleTranslate)
+	api.All("/image", pages.HandleImg)
 	api.Get("/source_languages", pages.HandleSourceLanguages)
 	api.Get("/target_languages", pages.HandleTargetLanguages)
 	api.Get("/engines", pages.HandleEngines)

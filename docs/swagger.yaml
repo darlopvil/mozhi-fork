@@ -1,4 +1,19 @@
 definitions:
+  libmozhi.ImgOut:
+    properties:
+      sourceB64:
+        type: string
+      sourceLang:
+        type: string
+      sourceTextParsed:
+        type: string
+      targetLang:
+        type: string
+      translatedImgB64:
+        type: string
+      translatedTextParsed:
+        type: string
+    type: object
   libmozhi.LangOut:
     properties:
       detected:
@@ -7,7 +22,11 @@ definitions:
         type: string
       source_language:
         type: string
+      source_transliteration:
+        type: string
       target_language:
+        type: string
+      target_transliteration:
         type: string
       translated-text:
         type: string
@@ -50,6 +69,36 @@ paths:
               type: string
             type: object
       summary: List engines
+  /api/image:
+    post:
+      description: When engine is set to all, it will return an array of libmozhi.LangOut.
+      parameters:
+      - description: Engine name
+        in: query
+        name: engine
+        required: true
+        type: string
+      - description: Source language
+        in: query
+        name: from
+        required: true
+        type: string
+      - description: Target language
+        in: query
+        name: to
+        required: true
+        type: string
+      - description: PNG image in base64 format
+        in: query
+        name: image
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/libmozhi.ImgOut'
+      summary: Translate an image
   /api/source_languages:
     get:
       parameters:
