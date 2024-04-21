@@ -16,5 +16,17 @@
         "link": "https://nyc1.mz.ggtyler.dev",
         "cloudflare": false,
         "host": "Royale Hosting"
+    },
+    {
+        "country": "Germany / USA / India",
+        "link": "https://translate.projectsegfau.lt",
+        "cloudflare": false,
+        "host": "Avoro / Racknerd / Airtel"
+    },
+    {
+        "country": "Ukraine",
+        "link": "https://translate.nerdvpn.de",
+        "cloudflare": false,
+        "host": "vsys.host"
     }
 ]
