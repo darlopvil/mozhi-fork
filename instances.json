@@ -28,5 +28,17 @@
         "link": "https://translate.nerdvpn.de",
         "cloudflare": false,
         "host": "vsys.host"
+    },
+    {
+        "country": "Germany",
+        "link": "https://mozhi.ducks.party",
+        "cloudflare": false,
+        "host": "Datalix"
+    },
+    {
+        "country": "Germany",
+        "link": "http://42i2bzogwkph3dvoo2bm6srskf7vvabsphw7uzftymbjjlzgfluhnmid.onion",
+        "cloudflare": false,
+        "host": "Datalix"
     }
 ]
