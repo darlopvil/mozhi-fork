@@ -1,0 +1,23 @@
+{
+  "name": "Mozhi",
+  "short_name": "Mozhi",
+  "description": "An alternative-frontend for many translation engines!",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFEDD5",
+  "theme_color": "#FFEDD5",
+  "icons": [
+    {
+      "src": "/assets/mozhi.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/mozhi.svg",
+      "sizes": "512x512",
+      "type": "image/svg",
+      "purpose": "maskable"
+    }
+  ]
+}
