@@ -116,7 +116,7 @@
           Copy the translation
         </button>
         {{end}}
-        {{ if and .Engine .From .To .OriginalText }}<p><a id="url" class="button" style="color:#010000; text-decoration: none;" onclick="copyLinkToClipboard(event)"
+        {{ if and .Engine .From .To .OriginalText }}<p><a id="url" class="button" onclick="copyLinkToClipboard(event)"
             href="/?engine={{.Engine}}&from={{.From}}&to={{.To}}&text={{.OriginalText}}">Copy translation link</a></p>
         {{end}}
         {{if .TranslationExists}}

@@ -40,6 +40,11 @@ a:hover {
   text-decoration: underline;
 }
 
+#url {
+  color: #010000;
+  text-decoration: none;
+}
+
 /* Navigation */
 nav {
   display: flex;
@@ -225,9 +230,9 @@ button:hover {
   margin: auto;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   .options {
-    background-color: #FFEDD5;
+    background-color: #ffedd5;
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -255,19 +260,20 @@ button:hover {
   }
 
   select,
+  .nice-select .nice-select-dropdown,
   .nice-select,
-  .nice-select-dropdown,
-  .nice-select-search {
-    background-color: #fff2e2;
+  .nice-select-search{
+    background-color: #fff;
     color: #2f2f2f;
   }
 
   body {
-    background-color: #FFEDD5;
+    background-color: #ffedd5;
     color: #000;
   }
 
-  button {
+  button,
+  #url {
     color: #fbe9e7;
   }
 
