@@ -1,11 +1,13 @@
 package pages
 
 import (
+	"encoding/base64"
+	"io"
+	"strings"
+
 	"codeberg.org/aryak/libmozhi"
 	"codeberg.org/aryak/mozhi/utils"
-	"encoding/base64"
 	"github.com/gofiber/fiber/v2"
-	"strings"
 )
 
 // HandleSourceLanguages godoc
@@ -107,24 +109,37 @@ func HandleTranslate(c *fiber.Ctx) error {
 //
 //	@Summary		Translate an image
 //	@Description	When engine is set to all, it will return an array of libmozhi.LangOut.
-//	@Param			engine	query		string	true	"Engine name"
-//	@Param			from	query		string	true	"Source language"
-//	@Param			to		query		string	true	"Target language"
-//	@Param			image	query		string	true	"PNG image in base64 format"
+//	@Param			engine	formData		string	true	"Engine name"
+//	@Param			from	formData		string	true	"Source language"
+//	@Param			to		formData		string	true	"Target language"
+//	@Param			image	formData		file	true	"PNG image"
 //	@Success		200		{object}	libmozhi.ImgOut
 //	@Router			/api/image [post]
 func HandleImg(c *fiber.Ctx) error {
-	engine := utils.Sanitize(utils.GetQueryOrFormValue(c, "engine"), "alpha")
-	from := utils.Sanitize(utils.GetQueryOrFormValue(c, "from"), "alpha")
-	to := utils.Sanitize(utils.GetQueryOrFormValue(c, "to"), "alpha")
-	image := utils.GetQueryOrFormValue(c, "image")
-	if engine == "" || from == "" || to == "" || image == "" {
-		return fiber.NewError(fiber.StatusBadRequest, "from, to, engine, image are required query strings.")
+	engine := utils.Sanitize(c.FormValue("engine"), "alpha")
+	from := utils.Sanitize(c.FormValue("from"), "alpha")
+	to := utils.Sanitize(c.FormValue("to"), "alpha")
+	file, err := c.FormFile("image")
+	if err != nil {
+		return err
 	}
-	if _, err := base64.StdEncoding.DecodeString(image); err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, "Invalid base64 image")
+	if file.Header.Get("Content-Type") != "image/png" {
+		return fiber.NewError(fiber.StatusBadRequest, "Invalid image, only png images are accepted")
 	}
-	data, err := libmozhi.ImageGoogle(to, from, image)
+	fileData, err := file.Open()
+	if err != nil {
+		return err
+	}
+	image, err := io.ReadAll(fileData)
+	if err != nil {
+		return err
+	}
+
+	if engine == "" || from == "" || to == "" {
+		return fiber.NewError(fiber.StatusBadRequest, "from, to, engine are required arguments.")
+	}
+	imageEncoded := base64.StdEncoding.EncodeToString(image)
+	data, err := libmozhi.ImageGoogle(to, from, imageEncoded)
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
