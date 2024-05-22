@@ -1,132 +1,145 @@
-{{template "header" .}}
+{{ template "header" . }}
 <main>
   <!-- Need to do this custom selector thingy since <select> cant submit on click -->
   <div class="custom-select">
-    {{range $key, $value := .enginesNames}} {{ if eq $.Engine $key }}Translate
-    with: <a href="#" class="selected-option">{{$value}}</a> {{end}} {{end}}
+    {{ range $key, $value := .enginesNames }} {{ if eq $.Engine $key }}Translate
+    with: <a href="#" class="selected-option">{{$value}}</a> {{ end }} {{ end }}
     <ul class="options">
-      {{range $key, $value := .enginesNames}}
+      {{ range $key, $value := .enginesNames }}
       <a href="/?engine={{$key}}">
         <li>{{$value}}</li>
       </a>
-      {{end}}
+      {{ end }}
     </ul>
   </div>
-
-  <br /><br />
-  <form action="/" method="POST" id="translation-form">
+  <br />
+  <br />
+  <form action="/" method="post" id="translation-form">
     <!-- This hidden input is so that the engine gets sent in the request even though its not declared here -->
     <input name="engine" value="{{.Engine}}" type="hidden" />
-
     <div class="wrap languages center-area">
       <div class="language">
         <select name="from" aria-label="Source language" id="sourceLanguage">
-          {{range $key, $value := .SourceLanguages}} {{if $.From}}
-          <option value="{{ .Id }}" {{if eq $.From .Id}}selected{{end}}>
+          {{ range $key, $value := .SourceLanguages }} {{ if $.From }}
+          <option value="{{ .Id }}" {{ if eq $.From .Id }}selected{{ end }}>
             {{ .Name }}
           </option>
-          {{else}}
-          <option value="{{ .Id }}" {{if eq .Id $.defaultLang}}selected{{end}}>
+        {{ else }}
+          <option value="{{ .Id }}" {{ if eq .Id $.defaultLang }}selected{{ end }}>
             {{ .Name }}
           </option>
-          {{end}} {{end}}
+          {{ end }} {{ end }}
         </select>
       </div>
-
       <div class="switch_languages">
-        <button id="switchbutton" aria-label="Switch languages" formaction="/switchlanguages?engine={{ .Engine }}"
-          type="submit">
+        <button id="switchbutton"
+                aria-label="Switch languages"
+                formaction="/switchlanguages?engine={{ .Engine }}"
+                type="submit">
           <!-- https://icon-sets.iconify.design/ci/arrow-left-right/ -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m16 13l3 3m0 0l-3 3m3-3H5m3-5L5 8m0 0l3-3M5 8h14" />
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="24"
+               height="24"
+               viewBox="0 0 24 24">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 13l3 3m0 0l-3 3m3-3H5m3-5L5 8m0 0l3-3M5 8h14" />
           </svg>
         </button>
       </div>
-
       <div class="language">
         <select name="to" aria-label="Target language" id="targetLanguage">
-          {{range $key, $value := .TargetLanguages}} {{if $.To}}
-          <option value="{{ .Id }}" {{if eq $.To .Id}}selected{{end}}>
+          {{ range $key, $value := .TargetLanguages }} {{ if $.To }}
+          <option value="{{ .Id }}" {{ if eq $.To .Id }}selected{{ end }}>
             {{ .Name }}
           </option>
-          {{else}}
-          <option value="{{ .Id }}" {{if eq .Id $.defaultLangTarget}}selected{{end}}>
+        {{ else }}
+          <option value="{{ .Id }}" {{ if eq .Id $.defaultLangTarget }}selected{{ end }}>
             {{ .Name }}
           </option>
-          {{end}} {{end}}
+          {{ end }} {{ end }}
         </select>
       </div>
     </div>
-
     <div class="center-area2 item-wrapper">
       Source Text:
       <textarea autofocus class="item" id="input" name="text" dir="auto" placeholder="Enter Text Here">
 {{ .OriginalText }}</textarea>
-      {{if .Translation.SourceTransliteration}}
-      <br>Transliteration: {{newlinetobr .Translation.SourceTransliteration}}{{end}}
-      {{if .TtsFrom}}
+      {{ if .Translation.SourceTransliteration }}
+      <br>
+      Transliteration: {{ newlinetobr .Translation.SourceTransliteration }}{{ end }}
+      {{ if .TtsFrom }}
       <br>
       <audio controls>
         <source type="audio/mpeg" src="{{ .TtsFrom }}" />
       </audio>
-      {{end}}
+      {{ end }}
       <br>
     </div>
-
     {{ if .TranslateAll }}
-    {{range $key, $value := .TranslateAll}}
+    {{ range $key, $value := .TranslateAll }}
     <div class="item-wrapper center-area2">
       Engine: {{.Engine}}
       <textarea class="translation item" dir="auto" placeholder="Translation" id="output" readonly>
 {{.OutputText}}</textarea>
-      {{if .AutoDetect}}
-      <br>Detected Language: {{.AutoDetect}}{{end}}
-      {{if .TargetTransliteration}}
-      <br>Transliteration: {{newlinetobr .TargetTransliteration}}{{end}}
-      {{if $.TtsTo}}
+      {{ if .AutoDetect }}
+      <br>
+      Detected Language: {{.AutoDetect}}{{ end }}
+      {{ if .TargetTransliteration }}
+      <br>
+      Transliteration: {{ newlinetobr .TargetTransliteration }}{{ end }}
+      {{ if $.TtsTo }}
       <br>
       <audio controls>
         <source type="audio/mpeg" src="{{ $.TtsTo }}" />
       </audio>
-      {{end}}
+      {{ end }}
       <br>
     </div>
-    {{end}}
-    {{ else }} {{if .TranslationExists}}
+    {{ end }}
+  {{ else }} {{ if .TranslationExists }}
     <div class="item-wrapper center-area2">
       <textarea class="translation item" dir="auto" placeholder="Translation" id="output" readonly>
 {{.Translation.OutputText}}</textarea>
-      {{if .Translation.AutoDetect}}
-      <br>Detected Language: {{.Translation.AutoDetect}}{{end}}
-      {{if .Translation.TargetTransliteration}}
-      <br>Transliteration: {{newlinetobr .Translation.TargetTransliteration}}{{end}}
-      {{if .TtsTo}}
+      {{ if .Translation.AutoDetect }}
+      <br>
+      Detected Language: {{.Translation.AutoDetect}}{{ end }}
+      {{ if .Translation.TargetTransliteration }}
+      <br>
+      Transliteration: {{ newlinetobr .Translation.TargetTransliteration }}{{ end }}
+      {{ if .TtsTo }}
       <br>
       <audio controls>
         <source type="audio/mpeg" src="{{ .TtsTo }}" />
       </audio>
-      {{end}}
+      {{ end }}
       <br>
-      {{end}}
-      {{end}}
-      <div style="display:flex; justify-content:space-around; align-items:center;">
-        {{if .TranslationExists}}
-        <button class="wrap" type="button" onclick="copyToClipboard()">
-          Copy the translation
-        </button>
-        {{end}}
-        {{ if and .Engine .From .To .OriginalText }}<p><a id="url" class="button" onclick="copyLinkToClipboard(event)"
-            href="/?engine={{.Engine}}&from={{.From}}&to={{.To}}&text={{.OriginalText}}">Copy translation link</a></p>
-        {{end}}
-        {{if .TranslationExists}}
-        <button class="wrap" type="submit">
-          {{else}}
-          <button class="wrap" style="margin-left:auto; position:relative; left:-10%;margin-top: 1%;" type="submit">
-            {{end}}
-            Translate!
-          </button>
+      {{ end }}
+      {{ end }}
+      <div style="display:flex;
+                  justify-content:space-around;
+                  align-items:center">
+        {{ if .TranslationExists }}
+        <button class="wrap" type="button" onclick="copyToClipboard()">Copy the translation</button>
+        {{ end }}
+        {{ if and .Engine .From .To .OriginalText }}
+        <p>
+          <a id="url"
+             class="button"
+             onclick="copyLinkToClipboard(event)"
+             href="/?engine={{.Engine}}&from={{.From}}&to={{.To}}&text={{.OriginalText}}">Copy translation link</a>
+        </p>
+        {{ end }}
+        {{ if .TranslationExists }}
+        <button class="wrap" type="submit">Translate!</button>
+      {{ else }}
+        <button class="wrap"
+                style="margin-left:auto;
+                       position:relative;
+                       left:-10%;
+                       margin-top: 1%"
+                type="submit">Translate!</button>
+        {{ end }}
       </div>
+    </div>
   </form>
   <script>
     // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
@@ -180,4 +193,4 @@
     }
   </script>
 </main>
-{{ template "footer" .}}
+{{ template "footer" . }}
