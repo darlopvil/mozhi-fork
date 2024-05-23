@@ -1,0 +1,55 @@
+{{ if .Translation.WordChoices }}
+<div id="definitions_and_translations">
+  <div class="translations">
+    {{ if or .Translation.TargetSynonyms .Translation.SourceSynonyms }}
+	<span class="def_type">Synonyms &amp; Antonyms</span>
+    <ul>
+      {{ if .Translation.TargetSynonyms }}
+      <li>
+        <span class="syn_type">Synonyms for {{.Translation.OutputText}}</span>
+        <span class="syn">{{ range $index, $key := .Translation.TargetSynonyms }}{{ if eq $key "" }}{{ else }}{{ if eq $index 0 }}{{ else }}, {{ end }}{{.}}{{ end }}{{ end }}</span>
+      </li>
+      <br>
+      {{ end }}
+      {{ if .Translation.SourceSynonyms }}
+      <li>
+        <span class="syn_type">Synonyms for {{.OriginalText}}</span>
+        <span class="syn">{{ range $index, $key := .Translation.SourceSynonyms }}{{ if eq $key "" }}{{ else }}{{ if eq $index 0 }}{{ else }}, {{ end }}{{.}}{{ end }}{{ end }}</span>
+      </li>
+      <br>
+      {{ end }}
+      {{ if .Translation.TargetAntonyms }}
+      <li>
+        <span class="syn_type">Antonyms for {{.Translation.OutputText}}</span>
+        <span class="syn">{{ range $index, $key := .Translation.TargetAntonyms }}{{ if eq $key "" }}{{ else }}{{ if eq $index 0 }}{{ else }}, {{ end }}{{.}}{{ end }}{{ end }}</span>
+      </li>
+      <br>
+      {{ end }}
+      {{ if .Translation.SourceAntonyms }}
+      <li>
+        <span class="syn_type">Antonyms for {{.OriginalText}}</span>
+        <span class="syn">{{ range $index, $key := .Translation.SourceAntonyms }}{{ if eq $key "" }}{{ else }}{{ if eq $index 0 }}{{ else }}, {{ end }}{{.}}{{ end }}{{ end }}</span>
+      </li>
+      <br>
+      {{ end }}
+    </ul>
+    {{ end }}
+  </div>
+  <div class="definitions">
+    {{ range $key := .Translation.WordChoices }}
+    <span class="def_type">{{ $key.Word }}</span>
+    <ol>
+      {{ range $index, $key2 := $key.ExamplesSource }}
+      <li>
+        <br>
+        <span class="use_in_sentence">{{ index $key.ExamplesSource $index }}</span>
+        <br>
+        <span class="use_in_sentence">{{ index $key.ExamplesTarget $index }}</span>
+        <br>
+      </li>
+      {{ end }}
+    </ol>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
