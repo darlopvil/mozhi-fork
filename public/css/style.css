@@ -214,12 +214,12 @@ button:hover {
 }
 
 .center-area {
+  width: 70%;
+  margin: 10px auto;
+  position: relative;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  max-width: 35%;
-  margin: auto;
-  margin-bottom: 1%;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .center-area2 {
