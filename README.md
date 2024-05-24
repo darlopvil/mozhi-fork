@@ -22,7 +22,6 @@ I'm initially focusing on the api and engines, but eventually Mozhi will have a 
 - DeepL
 - LibreTranslate
 - Yandex
-- IBM Watson
 - MyMemory
 - DuckDuckGo (almost 1-1 with Bing Translate)
 
@@ -62,7 +61,6 @@ These envvars turn off/on engines. By default all of them are enabled.
 - `MOZHI_DEEPL_ENABLED`
 - `MOZHI_LIBRETRANSLATE_ENABLED`
 - `MOZHI_YANDEX_ENABLED`
-- `MOZHI_WATSON_ENABLED`
 - `MOZHI_MYMEMORY_ENABLED`
 - `MOZHI_DUCKDUCKGO_ENABLED`
 

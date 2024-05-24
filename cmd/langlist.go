@@ -47,7 +47,7 @@ func init() {
 	rootCmd.AddCommand(langlistCmd)
 	translateCmd.Flags().SortFlags = false
 
-	langlistCmd.Flags().StringVarP(&engineused, "engine", "e", "", "[google|libre|reverso|deepl|watson|yandex|mymemory|duckduckgo]")
+	langlistCmd.Flags().StringVarP(&engineused, "engine", "e", "", "[google|libre|reverso|deepl|yandex|mymemory|duckduckgo]")
 	langlistCmd.Flags().StringVarP(&listtype, "type", "t", "", "[sl|tl] Choose language for source or target")
 	langlistCmd.Flags().BoolVarP(&raw, "raw", "r", false, "Return only selected language code.")
 

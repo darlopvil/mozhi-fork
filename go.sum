@@ -51,6 +51,8 @@ codeberg.org/aryak/libmozhi v0.0.0-20240522120450-090c25dcb721 h1:ZQ/tqILWJvFRZz
 codeberg.org/aryak/libmozhi v0.0.0-20240522120450-090c25dcb721/go.mod h1:X3kF1lzpbtHzJZUpPgNl9eJG70fskeqjuJYVHz+uNSo=
 codeberg.org/aryak/libmozhi v0.0.0-20240523071337-8b01c19082f6 h1:f7BFWPme7xHpFoUGudq2moIQ0BwNkCRyMyyZrUOyrJo=
 codeberg.org/aryak/libmozhi v0.0.0-20240523071337-8b01c19082f6/go.mod h1:cLOtjCmU2AsoL1B+kOzjOMWXYcsdewK8A5s5d/lQVBM=
+codeberg.org/aryak/libmozhi v0.0.0-20240524084116-a931c9472e76 h1:GsOycW30JTgEz4h4bnGGAm668g3Ir+LCQPsbcJ2hgjo=
+codeberg.org/aryak/libmozhi v0.0.0-20240524084116-a931c9472e76/go.mod h1:cLOtjCmU2AsoL1B+kOzjOMWXYcsdewK8A5s5d/lQVBM=
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
