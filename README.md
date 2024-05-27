@@ -23,7 +23,7 @@ I'm initially focusing on the api and engines, but eventually Mozhi will have a 
 - LibreTranslate
 - Yandex
 - MyMemory
-- DuckDuckGo (almost 1-1 with Bing Translate)
+- DuckDuckGo ( 1-1 with Bing Translate )
 
 ## Where is the engine code?
 The engine code has recently been split from the main codebase. Please check [aryak/libmozhi](https://codeberg.org/aryak/libmozhi) for it.
