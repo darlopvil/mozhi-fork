@@ -41,4 +41,10 @@
         "cloudflare": false,
         "host": "Datalix"
     }
+    {
+        "country": "Germany",
+        "link": "https://mozhi.pussthecat.org",
+        "cloudflare": false,
+        "host": "Hetzner"
+    }
 ]

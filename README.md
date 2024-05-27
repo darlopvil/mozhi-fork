@@ -76,6 +76,7 @@ These envvars turn off/on engines. By default all of them are enabled.
 | [translate.nerdvpn.de](https://translate.nerdvpn.de) | No | Ukraine | vsys.host |
 | [mozhi.ducks.party](https://mozhi.ducks.party) | No | Germany | Datalix |
 | [mozhi.ducks.party (Tor)](http://42i2bzogwkph3dvoo2bm6srskf7vvabsphw7uzftymbjjlzgfluhnmid.onion) | No | Germany | Datalix |
+| [mozhi.pussthecat.org](https://mozhi.pussthecat.org) | No | Germany | Hetzner |
 
 ## Features
 - An all mode where the responses of all supported engines will be shown.
