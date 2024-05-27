@@ -1,0 +1,54 @@
+{{ if .Translation.WordChoices }}
+<div id="definitions_and_translations">
+  <div class="translations">
+    {{ if or .Translation.TargetSynonyms .Translation.SourceSynonyms .Translation.SourceEquivalentTargetLang .Translation.TargetEquivalentSourceLang }}
+	<span class="def_type">Synonyms &amp; Equivalent Words</span>
+    <ul>
+      {{ if .Translation.TargetSynonyms }}
+      <li>
+        <span class="syn_type">Synonyms for {{.Translation.OutputText}}</span>
+        <span class="syn">{{ range $index, $key := .Translation.TargetSynonyms }}{{ if eq $key "" }}{{ else }}{{ if eq $index 0 }}{{ else }}, {{ end }}{{.}}{{ end }}{{ end }}</span>
+      </li>
+      <br>
+      {{ end }}
+      {{ if .Translation.SourceSynonyms }}
+      <li>
+        <span class="syn_type">Synonyms for {{.OriginalText}}</span>
+        <span class="syn">{{ range $index, $key := .Translation.SourceSynonyms }}{{ if eq $key "" }}{{ else }}{{ if eq $index 0 }}{{ else }}, {{ end }}{{.}}{{ end }}{{ end }}</span>
+      </li>
+      <br>
+      {{ end }}
+      {{ if .Translation.SourceEquivalentTargetLang}}
+	  {{ range $key, $val := .Translation.SourceEquivalentTargetLang }}
+      <li>
+        <span class="syn_type">Equivalents for {{$key}}</span>
+        <span class="syn">{{ range $index, $key2 := $val}}{{ if eq $key2 "" }}{{ else }}{{ if eq $index 0 }}{{ else }}, {{ end }}{{.}}{{ end }}{{ end }}</span>
+      </li>
+      <br>
+	  {{ end }}
+      {{ end }}
+      {{ if .Translation.TargetEquivalentSourceLang}}
+	  {{ range $key, $val := .Translation.TargetEquivalentSourceLang }}
+      <li>
+        <span class="syn_type">Equivalents for {{$key}}</span>
+        <span class="syn">{{ range $index, $key2 := $val}}{{ if eq $key2 "" }}{{ else }}{{ if eq $index 0 }}{{ else }}, {{ end }}{{.}}{{ end }}{{ end }}</span>
+      </li>
+      <br>
+	  {{ end }}
+      {{ end }}
+    </ul>
+    {{ end }}
+  </div>
+  <div class="definitions">
+    {{ range $key := .Translation.WordChoices }}
+    <span class="def_type">{{ $key.Word }}</span>
+    <ol>
+	  <li>{{ $key.Definition }}
+        <br>
+        <span class="use_in_sentence">{{ .Example }}</span>
+      </li>
+    </ol>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
