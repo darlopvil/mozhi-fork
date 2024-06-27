@@ -75,8 +75,10 @@ These envvars turn off/on engines. By default all of them are enabled.
 | [translate.projectsegfau.lt](https://translate.projectsegfau.lt) | No | Germany / USA / India | Avoro / Racknerd / Airtel |
 | [translate.nerdvpn.de](https://translate.nerdvpn.de) | No | Ukraine | vsys.host |
 | [mozhi.ducks.party](https://mozhi.ducks.party) | No | Germany | Datalix |
+| [mozhi.frontendfriendly.xyz](https://mozhi.frontendfriendly.xyz) | No | USA | Hetzner |
 | [mozhi.ducks.party (Tor)](http://42i2bzogwkph3dvoo2bm6srskf7vvabsphw7uzftymbjjlzgfluhnmid.onion) | No | Germany | Datalix |
 | [mozhi.pussthecat.org](https://mozhi.pussthecat.org) | No | Germany | Hetzner |
+| [mozhi.frontendfriendly.xyz (Tor)](http://mozhi.wsuno6lnjdcsiok5mrxvl6e2bdex7nhsqqav6ux7tkwrqiqnulejfbyd.onion) | No | USA | Hetzner |
 
 ## Features
 - An all mode where the responses of all supported engines will be shown.

@@ -20,7 +20,7 @@
     <div class="wrap languages center-area">
       <div class="language">
         <select name="from" aria-label="Source language" id="sourceLanguage">
-          {{ range $key, $value := .SourceLanguages }} {{ if $.From }}
+          {{ range $key, $value := .SourceLanguages }} {{ if eq $.From "" }}
           <option value="{{ .Id }}" {{ if eq $.From .Id }}selected{{ end }}>
             {{ .Name }}
           </option>
