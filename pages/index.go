@@ -95,7 +95,7 @@ func HandleIndex(c *fiber.Ctx) error {
 	defaultLang := os.Getenv("MOZHI_DEFAULT_SOURCE_LANG")
 	preferAutoDetect := os.Getenv("MOZHI_DEFAULT_PREFER_AUTODETECT")
 	defaultLangTarget := os.Getenv("MOZHI_DEFAULT_TARGET_LANG")
-	if defaultLang == "" || preferAutoDetect == "true" {
+	if defaultLang == "" || (preferAutoDetect == "true" && sourceLanguages[0].Id == "auto") {
 		defaultLang = "auto"
 	}
 	if defaultLangTarget == "" {
