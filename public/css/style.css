@@ -196,7 +196,8 @@ button:hover {
   background-color: #f0f0f0;
 }
 
-.custom-select:hover .options {
+.custom-select:hover .options,
+.custom-select:focus-within .options {
   display: block;
 }
 
