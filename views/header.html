@@ -14,18 +14,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
     <meta name="referrer" content="no-referrer" />
-	<script src="/js/nice-select2.js"></script>
-	<link rel="stylesheet" href="/css/nice-select2.css">
+    <script src="/js/nice-select2.js"></script>
+    <link rel="stylesheet" href="/css/nice-select2.css" />
     <link rel="stylesheet" href="/css/style.css" />
-	<link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json" />
   </head>
 
   <body>
     <header>
-      <a href="/"><img src="/assets/mozhi.png" alt="Mozhi Logo" class="navlogo" /></a>
+      <a href="/"
+        ><img src="/assets/mozhi.png" alt="Mozhi Logo" class="navlogo"
+      /></a>
       <nav>
         <a href="/about">About</a>
         <a href="/api/swagger">API</a>
+        <button onclick="toggleDarkMode()">
+          <svg
+            width="20px"
+            height="20px"
+            viewBox="0 0 24 24"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g
+              id="🔍-Product-Icons"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <g
+                id="ic_fluent_dark_theme_24_regular"
+                fill="#212121"
+                fill-rule="nonzero"
+              >
+                <path
+                  d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z"
+                  id="🎨-Color"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </button>
       </nav>
     </header>
+    <script>
+      function toggleDarkMode() {
+        if (document.documentElement.classList.contains("light")) {
+          document.documentElement.classList.remove("light");
+          document.documentElement.classList.add("dark");
+        } else if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          document.documentElement.classList.add("light");
+        } else {
+          if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: light)").matches
+          ) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.add("light");
+          }
+        }
+      }
+    </script>
     <br />

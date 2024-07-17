@@ -1,28 +1,6 @@
 /*General theming*/
 
-.dark-mode {
-  --bg-color: #222;
-  --fg-color: #f8f9fa;
-  --button-fg: #010000;
-  --textarea-focus-border: #e5ebff;
-  --textarea-bg: var(--bg-color);
-  --select-border: #ccc;
-  --select-bg: #2f2f2f;
-  --select-fg: #b2b2b2;
-}
-
-.light-mode {
-  --bg-color: #ffedd5;
-  --fg-color: #000000;
-  --button-fg: #fbe9e7;
-  --textarea-focus-border: #261f1e;
-  --textarea-bg: #fff4e6;
-  --select-border: #888888;
-  --select-bg: #fff;
-  --select-fg: #2f2f2f;
-}
-
-body {
+:root, :root.dark {
   /* Global Values */
   --main-border-color: #b2b2b2;
   --accent-color: #f57c00;
@@ -39,13 +17,40 @@ body {
   --select-border: #ccc;
   --select-bg: #2f2f2f;
   --select-fg: #b2b2b2;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: #ffedd5;
+    --fg-color: #000000;
+    --button-fg: #fbe9e7;
+    --textarea-focus-border: #261f1e;
+    --textarea-bg: #fff4e6;
+    --select-border: #888888;
+    --select-bg: #fff;
+    --select-fg: #2f2f2f;
+  }
+}
+
+:root.light {
+  --bg-color: #ffedd5;
+  --fg-color: #000000;
+  --button-fg: #fbe9e7;
+  --textarea-focus-border: #261f1e;
+  --textarea-bg: #fff4e6;
+  --select-border: #888888;
+  --select-bg: #fff;
+  --select-fg: #2f2f2f;
+}
+
+body {
   font-family: sans-serif;
   margin: 20px auto;
   line-height: 1.5em;
   max-width: 1000px;
   font-size: 1rem;
-  background-color: #222;
-  color: #f8f9fa;
+  background-color: var(--bg-color);
+  color: var(--fg-color);
   padding: 0 10px;
   hyphens: auto;
 }
@@ -144,6 +149,7 @@ button {
   border: none;
   border-radius: 4px;
   background: var(--accent-color);
+  color: var(--button-fg);
 }
 
 button:hover {
@@ -249,6 +255,8 @@ button:hover {
   border-left: 2px solid var(--accent-color);
   /* The rgba is the same value as above, but with a 0.25 opacity */
   box-shadow: 2px 2px 0px 0px var(--select-shadow);
+  background-color: var(--select-bg);
+  color: var(--select-fg);
 }
 
 .center-area {
@@ -313,55 +321,4 @@ div.definitions {
 
 div.translations {
   grid-area: translations;
-}
-
-@media (prefers-color-scheme: light) {
-  body {
-    --bg-color: #ffedd5;
-    --fg-color: #000000;
-    --button-fg: #fbe9e7;
-    --textarea-focus-border: #261f1e;
-    --textarea-bg: #fff4e6;
-    --select-border: #888888;
-    --select-bg: #fff;
-    --select-fg: #2f2f2f;
-    background-color: var(--bg-color);
-    color: var(--fg-color);
-  }
-
-  .options {
-    background-color: var(--bg-color);
-    box-shadow: 0 2px 4px var(--engine-options-shadow);
-    border: 1px solid var(--select-border);
-  }
-
-  .selected-option {
-    border: 1px solid var(--select-border);
-    color: var(--fg-color);
-  }
-
-  /* Theming for buttons and text areas*/
-  textarea {
-    border: 2px solid var(--textarea-border);
-    background-color: var(--textarea-bg);
-    color: var(--fg-color);
-  }
-
-  textarea:focus {
-    border-color: var(--textarea-focus-border);
-    outline: 1px solid var(--textarea-focus-border);
-  }
-
-  select,
-  .nice-select .nice-select-dropdown,
-  .nice-select,
-  .nice-select-search {
-    background-color: var(--select-bg);
-    color: var(--select-fg);
-  }
-
-  button,
-  #url {
-    color: var(--button-fg);
-  }
 }
