@@ -36,9 +36,21 @@
         "host": "Datalix"
     },
     {
+        "country": "USA",
+        "link": "https://mozhi.frontendfriendly.xyz",
+        "cloudflare": false,
+        "host": "Hetzner"
+    },
+    {
         "country": "Germany",
         "link": "https://mozhi.pussthecat.org",
         "cloudflare": false,
         "host": "Hetzner"
+    },
+    {
+        "country": "Germany",
+        "link": "https://mo.zorby.top",
+        "cloudflare": false,
+        "host": "pawhost.de"
     }
 ]
