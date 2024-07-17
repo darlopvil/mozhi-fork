@@ -52,5 +52,17 @@
         "link": "https://mo.zorby.top",
         "cloudflare": false,
         "host": "pawhost.de"
+    },
+    {
+        "country": "Germany",
+        "link": "https://mozhi.adminforge.de",
+        "cloudflare": false,
+        "host": "Hetzner"
+    },
+    {
+        "country": "Finland",
+        "link": "https://translate.privacyredirect.com",
+        "cloudflare": false,
+        "host": "Private WebHost"
     }
 ]
