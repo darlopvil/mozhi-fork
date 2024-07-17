@@ -77,7 +77,9 @@ These envvars turn off/on engines. By default all of them are enabled.
 | [mozhi.ducks.party](https://mozhi.ducks.party) | No | Germany | Datalix |
 | [mozhi.frontendfriendly.xyz](https://mozhi.frontendfriendly.xyz) | No | USA | Hetzner |
 | [mozhi.pussthecat.org](https://mozhi.pussthecat.org) | No | Germany | Hetzner |
-|  [mo.zorby.top](https://mo.zorby.top) | No | Germany | pawhost.de |
+| [mo.zorby.top](https://mo.zorby.top) | No | Germany | pawhost.de |
+| [mozhi.adminforge.de](https://mozhi.adminforge.de) | No | Germany | Hetzner |
+| [translate.privacyredirect.com](https://translate.privacyredirect.com) | No | Finland | Private WebHost |
 | [mozhi.frontendfriendly.xyz (Tor)](http://mozhi.wsuno6lnjdcsiok5mrxvl6e2bdex7nhsqqav6ux7tkwrqiqnulejfbyd.onion) | No | USA | Hetzner |
 | [mozhi.ducks.party (Tor)](http://42i2bzogwkph3dvoo2bm6srskf7vvabsphw7uzftymbjjlzgfluhnmid.onion) | No | Germany | Datalix |
 | [mo.zorby.top (Tor)](http://3mu2almmcv7rd7wlwhmkbwqgttntgpqu3hdanutxbv2v72wzbxe5ixqd.onion) | No | Germany | pawhost.de |
