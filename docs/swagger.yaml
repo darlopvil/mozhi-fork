@@ -20,12 +20,40 @@ definitions:
         type: string
       engine:
         type: string
+      source_antonyms:
+        items:
+          type: string
+        type: array
+      source_equivalent_target_lang:
+        additionalProperties:
+          items:
+            type: string
+          type: array
+        type: object
       source_language:
         type: string
+      source_synonyms:
+        items:
+          type: string
+        type: array
       source_transliteration:
         type: string
+      target_antonyms:
+        items:
+          type: string
+        type: array
+      target_equivalent_source_lang:
+        additionalProperties:
+          items:
+            type: string
+          type: array
+        type: object
       target_language:
         type: string
+      target_synonyms:
+        items:
+          type: string
+        type: array
       target_transliteration:
         type: string
       translated-text:
@@ -44,6 +72,12 @@ definitions:
     type: object
   libmozhi.WordChoices:
     properties:
+      definition:
+        type: string
+      example:
+        description: Example is for google alone; since it does not have a linked
+          example for source & target
+        type: string
       examples_source:
         items:
           type: string
@@ -74,25 +108,25 @@ paths:
       description: When engine is set to all, it will return an array of libmozhi.LangOut.
       parameters:
       - description: Engine name
-        in: query
+        in: formData
         name: engine
         required: true
         type: string
       - description: Source language
-        in: query
+        in: formData
         name: from
         required: true
         type: string
       - description: Target language
-        in: query
+        in: formData
         name: to
         required: true
         type: string
-      - description: PNG image in base64 format
-        in: query
+      - description: PNG image
+        in: formData
         name: image
         required: true
-        type: string
+        type: file
       responses:
         "200":
           description: OK

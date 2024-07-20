@@ -41,28 +41,28 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Engine name",
                         "name": "engine",
-                        "in": "query",
+                        "in": "formData",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Source language",
                         "name": "from",
-                        "in": "query",
+                        "in": "formData",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Target language",
                         "name": "to",
-                        "in": "query",
+                        "in": "formData",
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "description": "PNG image in base64 format",
+                        "type": "file",
+                        "description": "PNG image",
                         "name": "image",
-                        "in": "query",
+                        "in": "formData",
                         "required": true
                     }
                 ],
@@ -227,14 +227,56 @@ const docTemplate = `{
                 "engine": {
                     "type": "string"
                 },
+                "source_antonyms": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "source_equivalent_target_lang": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "source_language": {
                     "type": "string"
+                },
+                "source_synonyms": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "source_transliteration": {
                     "type": "string"
                 },
+                "target_antonyms": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "target_equivalent_source_lang": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "target_language": {
                     "type": "string"
+                },
+                "target_synonyms": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "target_transliteration": {
                     "type": "string"
@@ -264,6 +306,13 @@ const docTemplate = `{
         "libmozhi.WordChoices": {
             "type": "object",
             "properties": {
+                "definition": {
+                    "type": "string"
+                },
+                "example": {
+                    "description": "Example is for google alone; since it does not have a linked example for source \u0026 target",
+                    "type": "string"
+                },
                 "examples_source": {
                     "type": "array",
                     "items": {
