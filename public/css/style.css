@@ -240,7 +240,8 @@ button:hover {
   background-color: var(--engine-options-hover-bg);
 }
 
-.custom-select:hover .options {
+.custom-select:hover .options,
+.custom-select:focus-within .options {
   display: block;
 }
 
