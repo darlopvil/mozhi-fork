@@ -25,6 +25,10 @@ I'm initially focusing on the api and engines, but eventually Mozhi will have a 
 - MyMemory
 - DuckDuckGo ( 1-1 with Bing Translate )
 
+## Projects that use Mozhi
+- [select2translate](https://codeberg.org/aryak/select2translate) - Translate text from your selection clipboard using Mozhi
+- [Crow Translate](https://invent.kde.org/office/crow-translate) - KDE Project written in C++ / Qt that allows you to translate and speak text using Mozhi
+
 ## Where is the engine code?
 The engine code has recently been split from the main codebase. Please check [aryak/libmozhi](https://codeberg.org/aryak/libmozhi) for it.
 
