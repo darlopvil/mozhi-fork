@@ -1,10 +1,11 @@
 package utils
 
 import (
-	"codeberg.org/aryak/libmozhi"
-	"github.com/gofiber/fiber/v2"
 	"os"
 	"regexp"
+
+	"codeberg.org/aryak/libmozhi"
+	"github.com/gofiber/fiber/v2"
 )
 
 var nonAlphanumericRegex = regexp.MustCompile(`[^a-zA-Z,]+`)
@@ -34,7 +35,7 @@ func Sanitize(str string, strip string) string {
 }
 
 func EngineList() map[string]string {
-	engines := map[string]string{"all": "All Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "libre": "LibreTranslate", "mymemory": "MyMemory", "reverso": "Reverso", "yandex": "Yandex"}
+	engines := map[string]string{"all": "All Engines", "some": "Some Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "libre": "LibreTranslate", "mymemory": "MyMemory", "reverso": "Reverso", "yandex": "Yandex"}
 	if EnvTrueNoExist("MOZHI_GOOGLE_ENABLED") == false {
 		delete(engines, "google")
 	} else if EnvTrueNoExist("MOZHI_DEEPL_ENABLED") == false {

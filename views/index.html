@@ -14,9 +14,23 @@
   </div>
   <br />
   <br />
+  {{ if eq .Engine "some" }}
+  <form action="/" method="get" id="enginesForm">
+        <select name="engines" aria-label="Engines you want to use" id="engines" multiple>
+          {{ range $key, $value := .enginesNames}}
+          <option value="{{ $key }}" {{ contains $.SomeEngines $key "selected" }}>
+            {{ $value }}
+          </option>
+          {{end}}
+        </select>
+        <button type="submit">Select Engines</button>
+  {{ end }}
   <form action="/" method="post" id="translation-form">
     <!-- This hidden input is so that the engine gets sent in the request even though its not declared here -->
     <input name="engine" value="{{.Engine}}" type="hidden" />
+    {{ if eq .Engine "some" }}
+    <input name="engines" value="{{.EnginesNamesStr}}" type="hidden" />
+    {{ end }}
     <div class="wrap languages center-area">
       <div class="language">
         <select name="from" aria-label="Source language" id="sourceLanguage">
@@ -74,8 +88,8 @@
       {{ end }}
       <br>
     </div>
-    {{ if .TranslateAll }}
-    {{ range $key, $value := .TranslateAll }}
+    {{ if .TranslateMany }}
+    {{ range $key, $value := .TranslateMany }}
     <div class="item-wrapper center-area2">
       Engine: {{.Engine}}
       <textarea class="translation item" dir="auto" placeholder="Translation" id="output" readonly>

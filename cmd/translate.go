@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"encoding/json"
-	"strings"
 	"fmt"
+	"strings"
 
 	"codeberg.org/aryak/libmozhi"
 
@@ -12,7 +12,7 @@ import (
 
 var (
 	engine  string
-	engines  string
+	engines string
 	query   string
 	source  string
 	dest    string

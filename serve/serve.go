@@ -17,6 +17,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
+
 	//"github.com/gofiber/fiber/v2/middleware/limiter"
 	//	For debugging purposes
 	//	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -37,11 +38,19 @@ func Serve(port string) {
 	views := http.FS(views.GetFiles())
 	engine := html.NewFileSystem(views, ".html")
 
-	engine.AddFunc(
-		"newlinetobr", func(s string) template.HTML {
-			return template.HTML(strings.ReplaceAll(strings.ReplaceAll(s, "\n", "<br>"), "\r", ""))
-		},
-	)
+	engine.AddFunc("newlinetobr", func(s string) template.HTML {
+		return template.HTML(strings.ReplaceAll(strings.ReplaceAll(s, "\n", "<br>"), "\r", ""))
+	})
+
+	// Returns specific string if a string is in another slice
+	engine.AddFunc("contains", func(data []string, s string, retval string) template.HTML {
+		for _, val := range data {
+			if val == s {
+				return template.HTML(retval)
+			}
+		}
+		return template.HTML("")
+	})
 
 	app := fiber.New(fiber.Config{
 		Views:   engine,
@@ -107,7 +116,7 @@ func Serve(port string) {
 		to := utils.Sanitize(utils.GetQueryOrFormValue(c, "to"), "alpha")
 		text := utils.GetQueryOrFormValue(c, "text")
 		var swapText string
-		if engine != "all" && text != "" {
+		if engine != "all" && engine != "some" && text != "" {
 			translation, tlerr := libmozhi.Translate(engine, to, from, text)
 			if tlerr == nil {
 				swapText = translation.OutputText

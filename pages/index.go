@@ -3,16 +3,17 @@ package pages
 import (
 	"os"
 	"slices"
+	"strings"
 
 	"codeberg.org/aryak/libmozhi"
 	"codeberg.org/aryak/mozhi/utils"
 	"github.com/gofiber/fiber/v2"
 )
 
-func langListMerge(engines map[string]string) ([]libmozhi.List, []libmozhi.List) {
+func langListMerge(engines []string) ([]libmozhi.List, []libmozhi.List) {
 	sl := []libmozhi.List{}
 	tl := []libmozhi.List{}
-	for key := range engines {
+	for _, key := range engines {
 		temp, _ := libmozhi.LangList(key, "sl")
 		temp2, _ := libmozhi.LangList(key, "tl")
 		sl = append(sl, temp...)
@@ -23,6 +24,11 @@ func langListMerge(engines map[string]string) ([]libmozhi.List, []libmozhi.List)
 
 func HandleIndex(c *fiber.Ctx) error {
 	engines := utils.EngineList()
+	type enginesStruct struct {
+		Engines []string `query:"engines"`
+	}
+	enginesSome := new(enginesStruct)
+	c.QueryParser(enginesSome)
 	var enginesAsArray []string
 	for engine := range engines {
 		enginesAsArray = append(enginesAsArray, engine)
@@ -42,7 +48,25 @@ func HandleIndex(c *fiber.Ctx) error {
 	var sourceLanguages []libmozhi.List
 	var targetLanguages []libmozhi.List
 	if engine == "all" {
-		sourceLanguages, targetLanguages = langListMerge(engines)
+		sourceLanguages, targetLanguages = langListMerge(enginesAsArray)
+	} else if engine == "some" {
+		if c.Cookies("engines") == "" && enginesSome.Engines == nil {
+			enginesSome.Engines = append(enginesSome.Engines, "google")
+		} else if enginesSome.Engines == nil && c.Cookies("engines") != "" {
+			enginesSome.Engines = strings.Split(c.Cookies("engines"), ",")
+		}
+		for i, engine := range enginesSome.Engines {
+			if !slices.Contains(enginesAsArray, engine) || engine == "some" {
+				// Delete array from slice if its not in engines list
+				enginesSome.Engines = append(enginesSome.Engines[:i], enginesSome.Engines[i+1:]...)
+			} else if engine == "all" {
+				enginesSome.Engines = enginesAsArray
+			}
+		}
+		if enginesSome.Engines == nil {
+			enginesSome.Engines = append(enginesSome.Engines, "google")
+		}
+		sourceLanguages, targetLanguages = langListMerge(enginesSome.Engines)
 	} else {
 		sourceLanguages, _ = libmozhi.LangList(engine, "sl")
 		targetLanguages, _ = libmozhi.LangList(engine, "tl")
@@ -66,13 +90,16 @@ func HandleIndex(c *fiber.Ctx) error {
 
 	var translation libmozhi.LangOut
 	var translationExists bool
-	var transall []libmozhi.LangOut
+	var transmany []libmozhi.LangOut
 	var tlerr error
 	var ttsFrom string
 	var ttsTo string
 	if engine != "" && originalText != "" && from != "" && to != "" {
 		if engine == "all" {
-			transall = libmozhi.TranslateAll(to, from, originalText)
+			transmany = libmozhi.TranslateAll(to, from, originalText)
+		} else if engine == "some" {
+			// The error doesn't really matter since it just checks if the engines are valid, which is already checked in the code at the beginning of the func
+			transmany, _ = libmozhi.TranslateSome(enginesSome.Engines, to, from, originalText)
 		} else {
 			translation, tlerr = libmozhi.Translate(engine, to, from, originalText)
 			if tlerr != nil {
@@ -117,15 +144,23 @@ func HandleIndex(c *fiber.Ctx) error {
 		cookie.Value = to
 		c.Cookie(cookie)
 	}
+	if enginesSome.Engines != nil {
+		cookie := new(fiber.Cookie)
+		cookie.Name = "engines"
+		cookie.Value = strings.Join(enginesSome.Engines, ",")
+		c.Cookie(cookie)
+	}
 	return c.Render("index", fiber.Map{
 		"Engine":            engine,
 		"enginesNames":      engines,
+		"SomeEngines":       enginesSome.Engines,
+		"SomeEnginesStr":    strings.Join(enginesSome.Engines, ","),
 		"SourceLanguages":   sourceLanguages,
 		"TargetLanguages":   targetLanguages,
 		"OriginalText":      originalText,
 		"Translation":       translation,
 		"TranslationExists": translationExists,
-		"TranslateAll":      transall,
+		"TranslateMany":     transmany,
 		"From":              from,
 		"To":                to,
 		"TtsFrom":           ttsFrom,
