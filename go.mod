@@ -1,13 +1,13 @@
 module codeberg.org/aryak/mozhi
 
-go 1.22.0
+go 1.23.0
 
 replace github.com/OwO-Network/gdeeplx => github.com/gi-yt/gdeeplx v0.0.0-20230817133036-0eb71706cd51
 
 //replace codeberg.org/aryak/libmozhi => /home/arya/projects/mozhi/libmozhi
 
 require (
-	codeberg.org/aryak/libmozhi v0.0.0-20240822145112-b37698ae4db1
+	codeberg.org/aryak/libmozhi v0.0.0-20240901003115-73c39bb218c2
 	github.com/gofiber/fiber/v2 v2.52.5
 	github.com/gofiber/swagger v1.1.0
 	github.com/gofiber/template v1.8.0
@@ -20,7 +20,7 @@ require (
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/OwO-Network/gdeeplx v0.0.1 // indirect
-	github.com/PuerkitoBio/goquery v1.9.2 // indirect
+	github.com/PuerkitoBio/goquery v1.10.0 // indirect
 	github.com/abadojack/whatlanggo v1.0.1 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/andybalholm/cascadia v1.3.2 // indirect
@@ -63,11 +63,11 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.55.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
-	golang.org/x/net v0.28.0 // indirect
-	golang.org/x/sys v0.24.0 // indirect
-	golang.org/x/term v0.23.0 // indirect
-	golang.org/x/text v0.17.0 // indirect
-	golang.org/x/tools v0.24.0 // indirect
+	golang.org/x/net v0.29.0 // indirect
+	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/term v0.24.0 // indirect
+	golang.org/x/text v0.18.0 // indirect
+	golang.org/x/tools v0.25.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
