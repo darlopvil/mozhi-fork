@@ -80,8 +80,8 @@ func HandleTTS(c *fiber.Ctx) error {
 //	@Router			/api/translate [get]
 func HandleTranslate(c *fiber.Ctx) error {
 	engine := utils.Sanitize(utils.GetQueryOrFormValue(c, "engine"), "alpha")
-	from := utils.Sanitize(utils.GetQueryOrFormValue(c, "from"), "alpha")
-	to := utils.Sanitize(utils.GetQueryOrFormValue(c, "to"), "alpha")
+	from := utils.GetQueryOrFormValue(c, "from")
+	to := utils.GetQueryOrFormValue(c, "to")
 	text := utils.GetQueryOrFormValue(c, "text")
 	if engine == "" || from == "" || to == "" || text == "" {
 		return fiber.NewError(fiber.StatusBadRequest, "from, to, engine, text are required query strings.")
