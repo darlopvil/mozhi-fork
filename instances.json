@@ -49,12 +49,6 @@
     },
     {
         "country": "Germany",
-        "link": "https://mo.zorby.top",
-        "cloudflare": false,
-        "host": "pawhost.de"
-    },
-    {
-        "country": "Germany",
         "link": "https://mozhi.adminforge.de",
         "cloudflare": false,
         "host": "Hetzner"
@@ -64,6 +58,12 @@
         "link": "https://translate.privacyredirect.com",
         "cloudflare": false,
         "host": "Private WebHost"
+    },
+    {
+        "country": "USA",
+        "link": "https://mozhi.canine.tools",
+        "cloudflare": false,
+        "host": "RoyaleHosting"
     },
     {
         "country": "USA",
