@@ -66,6 +66,12 @@
         "host": "RoyaleHosting"
     },
     {
+        "country": "Germany",
+        "link": "https://mozhi.gitro.xyz",
+        "cloudflare": true,
+        "host": "Hetzner"
+    },
+    {
         "country": "USA",
         "onion": "http://mozhi.wsuno6lnjdcsiok5mrxvl6e2bdex7nhsqqav6ux7tkwrqiqnulejfbyd.onion",
         "cloudflare": false,
