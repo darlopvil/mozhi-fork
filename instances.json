@@ -68,7 +68,7 @@
     {
         "country": "Germany",
         "link": "https://mozhi.gitro.xyz",
-        "cloudflare": true,
+        "cloudflare": false,
         "host": "Hetzner"
     },
     {
