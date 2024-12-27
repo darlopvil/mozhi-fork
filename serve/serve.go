@@ -95,6 +95,11 @@ func Serve(port string) {
 	})
 
 	api := app.Group("/api")
+	// Set CORS Header for all API endpoints
+	api.Use(func(c *fiber.Ctx) error {
+		c.Set("Access-Control-Allow-Origin", "*")
+		return c.Next()
+	})
 	api.All("/translate", pages.HandleTranslate)
 	api.All("/image", pages.HandleImg)
 	api.Get("/source_languages", pages.HandleSourceLanguages)
