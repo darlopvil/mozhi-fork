@@ -97,9 +97,11 @@ func HandleIndex(c *fiber.Ctx) error {
 	if engine != "" && originalText != "" && from != "" && to != "" {
 		if engine == "all" {
 			transmany = libmozhi.TranslateAll(to, from, originalText)
+			translationExists = true
 		} else if engine == "some" {
 			// The error doesn't really matter since it just checks if the engines are valid, which is already checked in the code at the beginning of the func
 			transmany, _ = libmozhi.TranslateSome(enginesSome.Engines, to, from, originalText)
+			translationExists = true
 		} else {
 			translation, tlerr = libmozhi.Translate(engine, to, from, originalText)
 			if tlerr != nil {

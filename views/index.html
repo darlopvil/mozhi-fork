@@ -73,6 +73,22 @@
         </select>
       </div>
     </div>
+      {{ if .TranslationExists }}
+      <div style="display:flex;
+                  justify-content:space-around;
+                  align-items:center">
+        <button class="wrap" type="button" onclick="copyToClipboard()">Copy the translation</button>
+        {{ if and .Engine .From .To .OriginalText }}
+        <p>
+          <a id="url"
+             class="button"
+             onclick="copyLinkToClipboard(event)"
+             href="/?engine={{.Engine}}&from={{.From}}&to={{.To}}&text={{.OriginalText}}">Copy translation link</a>
+        </p>
+        {{ end }}
+        <button class="wrap" type="submit">Translate!</button>
+      </div>
+      {{ end }}
     <div class="center-area2 item-wrapper">
       Source Text:
       <textarea autofocus class="item" id="input" name="text" dir="auto" placeholder="Enter Text Here">
@@ -128,31 +144,15 @@
       <br>
       {{ end }}
       {{ end }}
-      <div style="display:flex;
-                  justify-content:space-around;
-                  align-items:center">
-        {{ if .TranslationExists }}
-        <button class="wrap" type="button" onclick="copyToClipboard()">Copy the translation</button>
-        {{ end }}
-        {{ if and .Engine .From .To .OriginalText }}
-        <p>
-          <a id="url"
-             class="button"
-             onclick="copyLinkToClipboard(event)"
-             href="/?engine={{.Engine}}&from={{.From}}&to={{.To}}&text={{.OriginalText}}">Copy translation link</a>
-        </p>
-        {{ end }}
-        {{ if .TranslationExists }}
-        <button class="wrap" type="submit">Translate!</button>
-      {{ else }}
-        <button class="wrap"
-                style="margin-left:auto;
-                       position:relative;
-                       left:-10%;
-                       margin-top: 1%"
-                type="submit">Translate!</button>
-        {{ end }}
-      </div>
+	  {{ if not .TranslationExists }}
+	  <button class="wrap"
+              style="margin-left:auto;
+                     position:relative;
+                     left:-10%;
+                     margin-top: 1%"
+              type="submit">Translate!</button>
+	  {{ end }}
+
     </div>
     {{ if eq .Engine "yandex" }}
     {{ template "yandex_extras" . }}
