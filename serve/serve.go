@@ -117,8 +117,8 @@ func Serve(port string) {
 	app.All("/", pages.HandleIndex)
 	app.All("/switchlanguages", func(c *fiber.Ctx) error {
 		engine := utils.Sanitize(utils.GetQueryOrFormValue(c, "engine"), "alpha")
-		from := utils.Sanitize(utils.GetQueryOrFormValue(c, "from"), "alpha")
-		to := utils.Sanitize(utils.GetQueryOrFormValue(c, "to"), "alpha")
+		from := utils.GetQueryOrFormValue(c, "from")
+		to := utils.GetQueryOrFormValue(c, "to")
 		text := utils.GetQueryOrFormValue(c, "text")
 		var swapText string
 		if engine != "all" && engine != "some" && text != "" {

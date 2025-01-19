@@ -55,7 +55,7 @@ func HandleTargetLanguages(c *fiber.Ctx) error {
 //	@Router		/api/tts [get]
 func HandleTTS(c *fiber.Ctx) error {
 	engine := utils.Sanitize(c.Query("engine"), "alpha")
-	lang := utils.Sanitize(c.Query("lang"), "alpha")
+	lang := c.Query("lang")
 	text := c.Query("text")
 	if engine == "" || text == "" || lang == "" {
 		return fiber.NewError(fiber.StatusBadRequest, "engine, lang, text are required query strings.")
@@ -117,8 +117,8 @@ func HandleTranslate(c *fiber.Ctx) error {
 //	@Router			/api/image [post]
 func HandleImg(c *fiber.Ctx) error {
 	engine := utils.Sanitize(c.FormValue("engine"), "alpha")
-	from := utils.Sanitize(c.FormValue("from"), "alpha")
-	to := utils.Sanitize(c.FormValue("to"), "alpha")
+	from := c.FormValue("from")
+	to := c.FormValue("to")
 	file, err := c.FormFile("image")
 	if err != nil {
 		return err
