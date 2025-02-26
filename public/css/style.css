@@ -16,14 +16,14 @@
   --textarea-bg: var(--bg-color);
   --select-border: #ccc;
   --select-bg: #2f2f2f;
-  --select-fg: #b2b2b2;
+  --select-fg: #fff;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --bg-color: #ffedd5;
     --fg-color: #000000;
-    --button-fg: #fbe9e7;
+    --button-fg: #fff;
     --textarea-focus-border: #261f1e;
     --textarea-bg: #fff4e6;
     --select-border: #888888;
@@ -35,7 +35,7 @@
 :root.light {
   --bg-color: #ffedd5;
   --fg-color: #000000;
-  --button-fg: #fbe9e7;
+  --button-fg: #fff;
   --textarea-focus-border: #261f1e;
   --textarea-bg: #fff4e6;
   --select-border: #888888;
