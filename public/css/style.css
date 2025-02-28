@@ -17,6 +17,8 @@
   --select-border: #ccc;
   --select-bg: #2f2f2f;
   --select-fg: #fff;
+  --select-hover: #595959;
+  --search-text: #fff;
 }
 
 @media (prefers-color-scheme: light) {
@@ -29,6 +31,8 @@
     --select-border: #888888;
     --select-bg: #fff;
     --select-fg: #2f2f2f;
+    --select-hover: #e0e0e0;
+    --search-text: #000000;
   }
 }
 
@@ -41,6 +45,8 @@
   --select-border: #888888;
   --select-bg: #fff;
   --select-fg: #2f2f2f;
+  --select-hover: #e0e0e0;
+  --search-text: #000000;
 }
 
 body {
@@ -258,6 +264,22 @@ button:hover {
   box-shadow: 2px 2px 0px 0px var(--select-shadow);
   background-color: var(--select-bg);
   color: var(--select-fg);
+}
+
+.nice-select .nice-select-dropdown {
+  background-color: var(--select-bg);
+  color: var(--select-fg);
+}
+
+.nice-select .nice-select-search {
+  background-color: var(--select-bg);
+  color: var(--search-text);
+}
+
+.nice-select .option:hover,
+.nice-select .option.focus,
+.nice-select .option.selected.focus {
+  background-color: var(--select-hover);
 }
 
 .center-area {
