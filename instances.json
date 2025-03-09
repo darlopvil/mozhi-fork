@@ -6,12 +6,6 @@
         "host": "Airtel"
     },
     {
-        "country": "Canada",
-        "link": "https://translate.bus-hit.me",
-        "cloudflare": false,
-        "host": "Oracle"
-    },
-    {
         "country": "USA",
         "link": "https://nyc1.mz.ggtyler.dev",
         "cloudflare": false,
@@ -34,12 +28,6 @@
         "link": "https://mozhi.ducks.party",
         "cloudflare": false,
         "host": "Datalix"
-    },
-    {
-        "country": "USA",
-        "link": "https://mozhi.frontendfriendly.xyz",
-        "cloudflare": false,
-        "host": "Hetzner"
     },
     {
         "country": "Germany",
@@ -70,6 +58,12 @@
         "link": "https://mozhi.gitro.xyz",
         "cloudflare": false,
         "host": "Hetzner"
+    },
+    {
+        "country": "Russia",
+        "link": "https://mzh.dc09.ru",
+        "cloudflare": false,
+        "host": "TimeWeb Cloud"
     },
     {
         "country": "USA",
