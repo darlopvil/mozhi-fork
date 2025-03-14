@@ -82,7 +82,6 @@ These envvars turn off/on engines. By default all of them are enabled.
 | [mozhi.adminforge.de](https://mozhi.adminforge.de) | No | Germany | Hetzner |
 | [translate.privacyredirect.com](https://translate.privacyredirect.com) | No | Finland | Private WebHost |
 | [mozhi.canine.tools](https://mozhi.canine.tools) | No | USA | RoyaleHosting |
-| [mozhi.gitro.xyz](https://mozhi.gitro.xyz) | No | Germany | Hetzner |
 | [mzh.dc09.ru](https://mzh.dc09.ru) | No | Russia | TimeWeb Cloud |
 | [mozhi.frontendfriendly.xyz (Tor)](http://mozhi.wsuno6lnjdcsiok5mrxvl6e2bdex7nhsqqav6ux7tkwrqiqnulejfbyd.onion) | No | USA | Hetzner |
 | [mozhi.ducks.party (Tor)](http://42i2bzogwkph3dvoo2bm6srskf7vvabsphw7uzftymbjjlzgfluhnmid.onion) | No | Germany | Datalix |
