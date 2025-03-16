@@ -54,12 +54,6 @@
         "host": "RoyaleHosting"
     },
     {
-        "country": "Germany",
-        "link": "https://mozhi.gitro.xyz",
-        "cloudflare": false,
-        "host": "Hetzner"
-    },
-    {
         "country": "Russia",
         "link": "https://mzh.dc09.ru",
         "cloudflare": false,
