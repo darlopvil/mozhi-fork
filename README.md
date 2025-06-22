@@ -59,6 +59,7 @@ Features of Mozhi can be customized and toggled on/off using Environment Variabl
 - `MOZHI_DEFAULT_SOURCE_LANG`: Language to default to if no source language is set by user. Defaults to Auto-Detect (or first available language in engines which dont support it)
 - `MOZHI_DEFAULT_PREFER_AUTODETECT`: Prefer autodetect if available instead of specified/default source language. Defaults to false
 - `MOZHI_DEFAULT_TARGET_LANG`: Language to default to if no target language is set by user. Defaults to English
+- `MOZHI_DEFAULT_ENGINE`: Engine to default to if no engine is set by user. Defaults to `google`
 
 These envvars turn off/on engines. By default all of them are enabled.
 - `MOZHI_GOOGLE_ENABLED`
