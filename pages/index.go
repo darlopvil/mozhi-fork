@@ -33,6 +33,14 @@ func HandleIndex(c *fiber.Ctx) error {
 	for engine := range engines {
 		enginesAsArray = append(enginesAsArray, engine)
 	}
+	defaultEngine := os.Getenv("MOZHI_DEFAULT_ENGINE")
+	if defaultEngine == "" || !slices.Contains(enginesAsArray, defaultEngine) {
+		if slices.Contains(enginesAsArray, "google") {
+			defaultEngine = "google"
+		} else if len(enginesAsArray) > 0 {
+			defaultEngine = enginesAsArray[0]
+		}
+	}
 	engineCookie := c.Cookies("engine")
 	fromCookie := c.Cookies("from")
 	toCookie := c.Cookies("to")
@@ -41,7 +49,7 @@ func HandleIndex(c *fiber.Ctx) error {
 		if engineCookie != "" {
 			engine = engineCookie
 		} else {
-			engine = "google"
+			engine = defaultEngine
 		}
 	}
 
