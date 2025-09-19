@@ -75,7 +75,6 @@ These envvars turn off/on engines. By default all of them are enabled.
 | Link | Cloudflare | Country | ISP | 
 | -------- | ---------- | ----------- | ----- |
 | [mozhi.aryak.me](https://mozhi.aryak.me) | No | India | Airtel |
-| [nyc1.mz.ggtyler.dev](https://nyc1.mz.ggtyler.dev) | No | USA | Royale Hosting |
 | [translate.projectsegfau.lt](https://translate.projectsegfau.lt) | No | Germany / USA / India | Avoro / Racknerd / Airtel |
 | [translate.nerdvpn.de](https://translate.nerdvpn.de) | No | Ukraine | vsys.host |
 | [mozhi.ducks.party](https://mozhi.ducks.party) | No | Germany | Datalix |

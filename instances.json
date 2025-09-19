@@ -6,12 +6,6 @@
         "host": "Airtel"
     },
     {
-        "country": "USA",
-        "link": "https://nyc1.mz.ggtyler.dev",
-        "cloudflare": false,
-        "host": "Royale Hosting"
-    },
-    {
         "country": "Germany / USA / India",
         "link": "https://translate.projectsegfau.lt",
         "cloudflare": false,
