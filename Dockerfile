@@ -18,6 +18,8 @@ RUN go build -ldflags="-s -w" -o /src/mozhi ./   # adjust path if needed
 FROM scratch AS runtime
 WORKDIR /app
 
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
 COPY --from=build /src/mozhi /app/mozhi
 
 EXPOSE 3000
