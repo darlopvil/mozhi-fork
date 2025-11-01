@@ -1,21 +1,24 @@
 FROM --platform=$BUILDPLATFORM golang:alpine AS build
 
 ARG TARGETARCH
-
 WORKDIR /src
+
 RUN apk --no-cache add git
+
+COPY go.mod go.sum ./
+RUN go mod download
+
 COPY . .
 
-ENV GOPRIVATE=codeberg.org/aryak/libmozhi
-#RUN go mod download
 RUN go run github.com/swaggo/swag/cmd/swag@latest init --parseDependency
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH go build -o /src/mozhi
 
-FROM alpine:3.16 AS bin
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH}
+RUN go build -ldflags="-s -w" -o /src/mozhi ./   # adjust path if needed
 
+FROM scratch AS runtime
 WORKDIR /app
-COPY --from=build /src/mozhi .
+
+COPY --from=build /src/mozhi /app/mozhi
 
 EXPOSE 3000
-
-CMD ["/app/mozhi", "serve"]
+ENTRYPOINT ["/app/mozhi", "serve"]
