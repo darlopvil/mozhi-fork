@@ -6,6 +6,7 @@ import (
 	"codeberg.org/aryak/mozhi/serve"
 )
 
+var host string = ""
 var port string = "3000"
 
 var serveCmd = &cobra.Command{
@@ -13,15 +14,17 @@ var serveCmd = &cobra.Command{
 	Short: "Start the web server.",
 	Long:  `Start the web server.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		serve.Serve(port)
+		serve.Serve(host, port)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(serveCmd)
 
-	serveCmd.Flags().StringVarP(&port, "port", "p", "", "The port Mozhi will listen to. Defaults to 3000, and overrides the MOZHI_PORT environment variable.")
+	serveCmd.Flags().StringVarP(&host, "host", "H", "", "The host Mozhi will listen on. Defaults to listening on all interfaces, and overrides the MOZHI_HOST environment variable.")
+	serveCmd.Flags().StringVarP(&port, "port", "p", "", "The port Mozhi will listen on. Defaults to 3000, and overrides the MOZHI_PORT environment variable.")
 
-	// set port variable to the value of the port flag
+	// set variables to the value of the flags
+	host = serveCmd.Flag("host").Value.String()
 	port = serveCmd.Flag("port").Value.String()
 }

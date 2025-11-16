@@ -34,7 +34,7 @@ import (
 // @license.name	AGPL 3.0
 // @license.url	https://www.gnu.org/licenses/agpl-3.0.txt
 // @BasePath		/api
-func Serve(port string) {
+func Serve(host, port string) {
 	views := http.FS(views.GetFiles())
 	engine := html.NewFileSystem(views, ".html")
 
@@ -137,12 +137,21 @@ func Serve(port string) {
 		Root:   http.FS(public.GetFiles()),
 	}))
 
-	val, ok := os.LookupEnv("MOZHI_PORT")
+	hostVal, ok := os.LookupEnv("MOZHI_HOST")
 	if !ok {
-		val = "3000"
+		hostVal = ""
+	}
+	if host != "" {
+		hostVal = host
+	}
+
+	portVal, ok := os.LookupEnv("MOZHI_PORT")
+	if !ok {
+		portVal = "3000"
 	}
 	if port != "" {
-		val = port
+		portVal = port
 	}
-	log.Fatal(app.Listen(":" + val))
+
+	log.Fatal(app.Listen(hostVal + ":" + portVal))
 }
