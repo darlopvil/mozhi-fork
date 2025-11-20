@@ -54,7 +54,8 @@ Reverso sometimes blocks IPs of servers hosting mozhi, and since it doesn't have
 ## Configuration
 Features of Mozhi can be customized and toggled on/off using Environment Variables.
 
-- `MOZHI_PORT`: Port the webserver listens on (if hosting API)
+- `MOZHI_HOST`: Host address the webserver listens on (if hosting API). Defaults to listening on all interfaces
+- `MOZHI_PORT`: Port the webserver listens on (if hosting API). Defaults to `3000`
 - `MOZHI_LIBRETRANSLATE_URL`: URL of Libretranslate instance (Example: `MOZHI_LIBRETRANSLATE_URL=https://lt.psf.lt`)
 - `MOZHI_DEFAULT_SOURCE_LANG`: Language to default to if no source language is set by user. Defaults to Auto-Detect (or first available language in engines which dont support it)
 - `MOZHI_DEFAULT_PREFER_AUTODETECT`: Prefer autodetect if available instead of specified/default source language. Defaults to false
