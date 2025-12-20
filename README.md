@@ -84,7 +84,6 @@ These envvars turn off/on engines. By default all of them are enabled.
 | [translate.privacyredirect.com](https://translate.privacyredirect.com) | No | Finland | Private WebHost |
 | [mozhi.canine.tools](https://mozhi.canine.tools) | No | USA | RoyaleHosting |
 | [mzh.dc09.ru](https://mzh.dc09.ru) | No | Russia | TimeWeb Cloud |
-| [mozhi.franklyflawless.org](https://mozhi.franklyflawless.org) | No | Germany | Hetzner |
 | [mozhi.frontendfriendly.xyz (Tor)](http://mozhi.wsuno6lnjdcsiok5mrxvl6e2bdex7nhsqqav6ux7tkwrqiqnulejfbyd.onion) | No | USA | Hetzner |
 | [mozhi.ducks.party (Tor)](http://42i2bzogwkph3dvoo2bm6srskf7vvabsphw7uzftymbjjlzgfluhnmid.onion) | No | Germany | Datalix |
 | [mozhi.r4fo.com](https://mozhi.r4fo.com) | No | Netherlands | Oracle |
