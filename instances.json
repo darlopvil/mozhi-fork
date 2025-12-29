@@ -54,12 +54,6 @@
         "host": "TimeWeb Cloud"
     },
     {
-        "country": "Germany",
-        "link": "https://mozhi.franklyflawless.org",
-        "cloudflare": false,
-        "host": "Hetzner"
-    },
-    {
         "country": "USA",
         "onion": "http://mozhi.wsuno6lnjdcsiok5mrxvl6e2bdex7nhsqqav6ux7tkwrqiqnulejfbyd.onion",
         "cloudflare": false,
