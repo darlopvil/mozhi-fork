@@ -76,7 +76,10 @@
       {{ if .TranslationExists }}
       <div style="display:flex;
                   justify-content:space-around;
-                  align-items:center">
+                  align-items:center;
+                  flex-wrap:wrap;
+                  row-gap:5px;
+                  column-gap:2px">
         <button class="wrap" type="button" onclick="copyToClipboard()">Copy the translation</button>
         {{ if and .Engine .From .To .OriginalText }}
         <p>
