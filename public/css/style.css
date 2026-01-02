@@ -188,8 +188,8 @@ button:hover {
 }
 
 .wrap.languages {
-  flex-wrap: nowrap;
   margin-bottom: 20px;
+  row-gap: 5px;
 }
 
 .language {
@@ -282,12 +282,14 @@ button:hover {
   background-color: var(--select-hover);
 }
 
-.center-area {
-  width: 70%;
-  margin: 10px auto;
-  position: relative;
+#translation-form {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center-area {
+  display: flex;
   justify-content: center;
 }
 
@@ -335,6 +337,15 @@ button:hover {
     grid-template-areas:
       "translations translations"
       "definitions definitions";
+  }
+}
+
+@media (max-width: 310px) {
+  .switch_languages {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 

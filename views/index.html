@@ -79,10 +79,10 @@
                   align-items:center;
                   flex-wrap:wrap;
                   row-gap:5px;
-                  column-gap:2px">
+                  column-gap:5px">
         <button class="wrap" type="button" onclick="copyToClipboard()">Copy the translation</button>
         {{ if and .Engine .From .To .OriginalText }}
-        <p>
+        <p style="margin:0">
           <a id="url"
              class="button"
              onclick="copyLinkToClipboard(event)"
