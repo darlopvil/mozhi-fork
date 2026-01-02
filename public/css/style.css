@@ -282,12 +282,6 @@ button:hover {
   background-color: var(--select-hover);
 }
 
-#translation-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .center-area {
   display: flex;
   justify-content: center;
