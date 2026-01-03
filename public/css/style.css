@@ -334,7 +334,7 @@ button:hover {
   }
 }
 
-@media (max-width: 310px) {
+@media (max-width: 420px) {
   .switch_languages {
     flex-basis: 100%;
     display: flex;
