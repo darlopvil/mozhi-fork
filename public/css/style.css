@@ -282,6 +282,16 @@ button:hover {
   background-color: var(--select-hover);
 }
 
+.translation-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  column-gap: 5px;
+  margin: 16px 0;
+}
+
 .center-area {
   display: flex;
   justify-content: center;
