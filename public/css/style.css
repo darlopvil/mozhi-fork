@@ -131,7 +131,7 @@ textarea:focus {
 
 select {
   display: flex;
-  padding: 4px 8px;
+  padding: 8px 12px;
   justify-content: space-between;
   flex: 1 0 0;
   border-right: none;
@@ -188,8 +188,8 @@ button:hover {
 }
 
 .wrap.languages {
-  flex-wrap: nowrap;
   margin-bottom: 20px;
+  row-gap: 5px;
 }
 
 .language {
@@ -282,12 +282,18 @@ button:hover {
   background-color: var(--select-hover);
 }
 
-.center-area {
-  width: 70%;
-  margin: 10px auto;
-  position: relative;
+.translation-buttons {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
+  row-gap: 5px;
+  column-gap: 5px;
+  margin: 16px 0;
+}
+
+.center-area {
+  display: flex;
   justify-content: center;
 }
 
@@ -335,6 +341,15 @@ button:hover {
     grid-template-areas:
       "translations translations"
       "definitions definitions";
+  }
+}
+
+@media (max-width: 420px) {
+  .switch_languages {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 

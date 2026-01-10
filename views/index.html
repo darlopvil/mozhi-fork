@@ -74,12 +74,10 @@
       </div>
     </div>
       {{ if .TranslationExists }}
-      <div style="display:flex;
-                  justify-content:space-around;
-                  align-items:center">
+      <div class="translation-buttons">
         <button class="wrap" type="button" onclick="copyToClipboard()">Copy the translation</button>
         {{ if and .Engine .From .To .OriginalText }}
-        <p>
+        <p style="margin:0">
           <a id="url"
              class="button"
              onclick="copyLinkToClipboard(event)"
