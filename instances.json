@@ -49,9 +49,9 @@
     },
     {
         "country": "Russia",
-        "link": "https://mzh.dc09.ru",
+        "link": "https://mzh.dc09.xyz",
         "cloudflare": false,
-        "host": "TimeWeb Cloud"
+        "host": "Beget"
     },
     {
         "country": "USA",
@@ -76,5 +76,11 @@
         "i2p": "http://74lptlnvaukcjnmqefedgna35ahkqexqzq2qq3k7utc2ep4jotcq.b32.i2p",
         "cloudflare": false,
         "host": "pawhost.de"
+    },
+    {
+        "country": "Germany",
+        "link": "https://mozhi.bloat.cat",
+        "cloudflare": false,
+        "host": "Datalix"
     }
 ]
