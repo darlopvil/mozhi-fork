@@ -89,6 +89,9 @@ These envvars turn off/on engines. By default all of them are enabled.
 | [mozhi.r4fo.com](https://mozhi.r4fo.com) | No | Netherlands | Oracle |
 | [mozhi.r4fo.com (Tor)](http://mozhi.r4focoma7gu2zdwwcjjad47ysxt634lg73sxmdbkdozanwqslho5ohyd.onion) | No | Netherlands | Oracle |
 | [mozhi.bloat.cat](https://mozhi.bloat.cat) | No | Germany | Datalix |
+| [mozhi.catsarch.com](https://mozhi.catsarch.com) | No | USA / Germany | Netcup |
+| [mozhi.catsarch.com (Tor)](http://mozhi.catsarchywsyuss6jdxlypsw5dc7owd5u5tr6bujxb7o6xw2hipqehyd.onion) | No | USA / Germany | Netcup |
+| [mozhi.catsarch.com (I2P)](http://b5jb6gilzl43u5js4d7jtcqmsk3xdjfbiowudij5yyhpm5bub3kq.b32.i2p) | No | USA / Germany | Netcup |
 
 ## Features
 - An all mode where the responses of all supported engines will be shown.

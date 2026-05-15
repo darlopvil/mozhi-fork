@@ -82,5 +82,23 @@
         "link": "https://mozhi.bloat.cat",
         "cloudflare": false,
         "host": "Datalix"
+    },
+    {
+        "country": "USA / Germany",
+        "link": "https://mozhi.catsarch.com",
+        "cloudflare": false,
+        "host": "Netcup"
+    },
+    {
+        "country": "USA / Germany",
+        "onion": "http://mozhi.catsarchywsyuss6jdxlypsw5dc7owd5u5tr6bujxb7o6xw2hipqehyd.onion",
+        "cloudflare": false,
+        "host": "Netcup"
+    },
+    {
+        "country": "USA / Germany",
+        "i2p": "http://b5jb6gilzl43u5js4d7jtcqmsk3xdjfbiowudij5yyhpm5bub3kq.b32.i2p",
+        "cloudflare": false,
+        "host": "Netcup"
     }
 ]
