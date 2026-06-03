@@ -17,7 +17,7 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		log.Println(os.Stderr, "Error running CLI: %v", err)
+		log.Printf("Error running CLI: %v", err)
 		os.Exit(1)
 	}
 }
