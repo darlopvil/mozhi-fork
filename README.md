@@ -1,3 +1,7 @@
+> **Fork notice:** versión modificada de [aryak/mozhi](https://codeberg.org/aryak/mozhi),
+> mantenida por [darlopvil](https://github.com/darlopvil). Cambios y roadmap en los
+> [issues](https://github.com/darlopvil/mozhi-fork/issues). Licencia AGPLv3, igual que upstream.
+
 <div align="center">
   <img src="public/assets/mozhi.png" width="192" height="192" alt="Mozhi logo">
   <h1>Mozhi</h1>
