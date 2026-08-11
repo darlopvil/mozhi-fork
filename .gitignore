@@ -31,3 +31,8 @@ tmp/
 
 # Env files
 *.env
+compose.yml
+docker-compose.yml
+.env
+docker-compose.yml.bak
+mozhi
