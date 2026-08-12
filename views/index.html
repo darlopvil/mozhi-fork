@@ -31,7 +31,7 @@
     <!-- This hidden input is so that the engine gets sent in the request even though its not declared here -->
     <input name="engine" value="{{.Engine}}" type="hidden" />
     {{ if eq .Engine "some" }}
-    <input name="engines" value="{{.EnginesNamesStr}}" type="hidden" />
+    <input name="engines" value="{{.SomeEnginesStr}}" type="hidden" />
     {{ end }}
     <div class="wrap languages center-area">
       <div class="language">
