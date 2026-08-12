@@ -120,7 +120,7 @@ func HandleIndex(c *fiber.Ctx) error {
 			}
 			translationExists = true
 		}
-		if engine == "google" || engine == "reverso" || engine == "textra" {
+		if engine == "google" || engine == "reverso" || engine == "textra" || engine == "groq" {
 			if from == "auto" && translation.AutoDetect != "" {
 				ttsFrom = "/api/tts?lang=" + translation.AutoDetect + "&engine=" + engine + "&text=" + originalText
 			} else {
