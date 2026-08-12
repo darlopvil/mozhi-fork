@@ -35,7 +35,7 @@ func Sanitize(str string, strip string) string {
 }
 
 func EngineList() map[string]string {
-	engines := map[string]string{"all": "All Engines", "some": "Some Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "mymemory": "MyMemory", "yandex": "Yandex"}
+	engines := map[string]string{"all": "All Engines", "some": "Some Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "gemini": "Gemini", "mymemory": "MyMemory", "yandex": "Yandex"}
 	if EnvTrueNoExist("MOZHI_GOOGLE_ENABLED") == false {
 		delete(engines, "google")
 	} else if EnvTrueNoExist("MOZHI_DEEPL_ENABLED") == false {
