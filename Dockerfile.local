@@ -1,4 +1,5 @@
-# Build local del fork. Contexto esperado: ~/dev (contiene mozhi/ y libmozhi/)
+# Build local del fork. Contexto esperado: el directorio padre que contiene mozhi/ y libmozhi/ (p.ej. ~).
+# Build: cd ~ && docker build -f mozhi/Dockerfile.local -t mozhi-fork:local .
 FROM golang:alpine AS build
 WORKDIR /src
 RUN apk --no-cache add ca-certificates

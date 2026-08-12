@@ -2,6 +2,21 @@
 > mantenida por [darlopvil](https://github.com/darlopvil). Cambios y roadmap en los
 > [issues](https://github.com/darlopvil/mozhi-fork/issues). Licencia AGPLv3, igual que upstream.
 
+
+## Build local (self-hosted)
+
+Este fork se construye localmente, sin registry. Estructura esperada:
+
+    ~/mozhi/      → este repo (código + docker-compose.yml + .env, no versionados)
+    ~/libmozhi/   → fork de libmozhi (el motor); enganchado vía `replace` en go.mod
+
+Para reconstruir tras un cambio y recrear el contenedor:
+
+    ./rebuild.sh
+
+Requiere que `docker-compose.yml` use `image: mozhi-fork:local`.
+Las variables de entorno (API keys de DeepL, Gemini, TexTra, etc.) van en `.env`, que no se versiona.
+
 <div align="center">
   <img src="public/assets/mozhi.png" width="192" height="192" alt="Mozhi logo">
   <h1>Mozhi</h1>
