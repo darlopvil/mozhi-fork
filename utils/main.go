@@ -35,19 +35,15 @@ func Sanitize(str string, strip string) string {
 }
 
 func EngineList() map[string]string {
-	engines := map[string]string{"all": "All Engines", "some": "Some Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "libre": "LibreTranslate", "mymemory": "MyMemory", "reverso": "Reverso", "yandex": "Yandex"}
+	engines := map[string]string{"all": "All Engines", "some": "Some Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "mymemory": "MyMemory", "yandex": "Yandex"}
 	if EnvTrueNoExist("MOZHI_GOOGLE_ENABLED") == false {
 		delete(engines, "google")
 	} else if EnvTrueNoExist("MOZHI_DEEPL_ENABLED") == false {
 		delete(engines, "deepl")
 	} else if EnvTrueNoExist("MOZHI_DUCKDUCKGO_ENABLED") == false {
 		delete(engines, "duckduckgo")
-	} else if EnvTrueNoExist("MOZHI_LIBRETRANSLATE_ENABLED") == false || EnvTrueNoExist("MOZHI_LIBRETRANSLATE_URL") {
-		delete(engines, "libre")
 	} else if EnvTrueNoExist("MOZHI_MYMEMORY_ENABLED") == false {
 		delete(engines, "mymemory")
-	} else if EnvTrueNoExist("MOZHI_REVERSO_ENABLED") == false {
-		delete(engines, "reverso")
 	} else if EnvTrueNoExist("MOZHI_YANDEX_ENABLED") == false {
 		delete(engines, "yandex")
 	}
