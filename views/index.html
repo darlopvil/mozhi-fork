@@ -18,9 +18,11 @@
   <form action="/" method="get" id="enginesForm">
         <select name="engines" aria-label="Engines you want to use" id="engines" multiple>
           {{ range $key, $value := .enginesNames}}
+          {{ if and (ne $key "all") (ne $key "some") }}
           <option value="{{ $key }}" {{ contains $.SomeEngines $key "selected" }}>
             {{ $value }}
           </option>
+          {{ end }}
           {{end}}
         </select>
         <button type="submit">Select Engines</button>

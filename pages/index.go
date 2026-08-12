@@ -63,14 +63,17 @@ func HandleIndex(c *fiber.Ctx) error {
 		} else if enginesSome.Engines == nil && c.Cookies("engines") != "" {
 			enginesSome.Engines = strings.Split(c.Cookies("engines"), ",")
 		}
-		for i, engine := range enginesSome.Engines {
-			if !slices.Contains(enginesAsArray, engine) || engine == "some" {
-				// Delete array from slice if its not in engines list
-				enginesSome.Engines = append(enginesSome.Engines[:i], enginesSome.Engines[i+1:]...)
-			} else if engine == "all" {
-				enginesSome.Engines = enginesAsArray
+		filtered := enginesSome.Engines[:0]
+		for _, engine := range enginesSome.Engines {
+			if engine == "all" {
+				filtered = enginesAsArray
+				break
+			}
+			if slices.Contains(enginesAsArray, engine) && engine != "some" {
+				filtered = append(filtered, engine)
 			}
 		}
+		enginesSome.Engines = filtered
 		if enginesSome.Engines == nil {
 			enginesSome.Engines = append(enginesSome.Engines, "google")
 		}
