@@ -360,3 +360,12 @@ div.definitions {
 div.translations {
   grid-area: translations;
 }
+
+.engine-icon {
+  width: 1.1em;
+  height: 1.1em;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 0.4em;
+  border-radius: 2px;
+}

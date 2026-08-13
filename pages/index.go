@@ -24,6 +24,26 @@ func langListMerge(engines []string) ([]libmozhi.List, []libmozhi.List) {
 
 func HandleIndex(c *fiber.Ctx) error {
 	engines := utils.EngineList()
+
+	// Orden del dropdown: all/some arriba fijos, resto alfabético por nombre visible.
+	enginesOrder := []string{}
+	for key := range engines {
+		if key == "all" || key == "some" {
+			continue
+		}
+		enginesOrder = append(enginesOrder, key)
+	}
+	slices.SortFunc(enginesOrder, func(a, b string) int {
+		return strings.Compare(engines[a], engines[b])
+	})
+	enginesPrefix := []string{}
+	if _, ok := engines["all"]; ok {
+		enginesPrefix = append(enginesPrefix, "all")
+	}
+	if _, ok := engines["some"]; ok {
+		enginesPrefix = append(enginesPrefix, "some")
+	}
+	enginesOrder = append(enginesPrefix, enginesOrder...)
 	type enginesStruct struct {
 		Engines []string `query:"engines"`
 	}
@@ -166,6 +186,7 @@ func HandleIndex(c *fiber.Ctx) error {
 	return c.Render("index", fiber.Map{
 		"Engine":            engine,
 		"enginesNames":      engines,
+		"enginesOrder":      enginesOrder,
 		"SomeEngines":       enginesSome.Engines,
 		"SomeEnginesStr":    strings.Join(enginesSome.Engines, ","),
 		"SourceLanguages":   sourceLanguages,

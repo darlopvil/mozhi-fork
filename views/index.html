@@ -3,11 +3,11 @@
   <!-- Need to do this custom selector thingy since <select> cant submit on click -->
   <div class="custom-select">
     {{ range $key, $value := .enginesNames }} {{ if eq $.Engine $key }}Translate
-    with: <a href="#" class="selected-option">{{$value}}</a> {{ end }} {{ end }}
+    with: <a href="#" class="selected-option"><img src="/assets/icons/{{$key}}.svg" onerror="this.onerror=null;this.src='/assets/icons/{{$key}}.png';this.onerror=function(){this.style.display='none'}" class="engine-icon" alt="">{{$value}}</a> {{ end }} {{ end }}
     <ul class="options">
-      {{ range $key, $value := .enginesNames }}
+      {{ range $key := .enginesOrder }}
       <a href="/?engine={{$key}}">
-        <li>{{$value}}</li>
+        <li><img src="/assets/icons/{{$key}}.svg" onerror="this.onerror=null;this.src='/assets/icons/{{$key}}.png';this.onerror=function(){this.style.display='none'}" class="engine-icon" alt="">{{ index $.enginesNames $key }}</li>
       </a>
       {{ end }}
     </ul>
