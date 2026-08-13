@@ -2,6 +2,69 @@
 > mantenida por [darlopvil](https://github.com/darlopvil). Cambios y roadmap en los
 > [issues](https://github.com/darlopvil/mozhi-fork/issues). Licencia AGPLv3, igual que upstream.
 
+---
+
+## Qué añade este fork
+
+Traductores, diccionario y voz sobre el Mozhi original:
+
+**Motores nuevos**
+- **DeepL oficial** — usa la API oficial cuando hay API key (si no, cae al deeplx gratuito).
+- **Gemini** (LLM) — traducción de alta calidad con contexto y matiz.
+- **TexTra (NICT)** — motor japonés de un organismo público japonés, gratuito.
+- **Groq** (LLM) — Llama a gran velocidad.
+- **OpenRouter** — tres motores separados: GPT-OSS, Gemma y Nemotron (un modelo cada uno).
+- **Mistral** (LLM) — modelos europeos.
+
+**Diccionario / palabras alternativas** (senses, ejemplos, sinónimos, antónimos)
+- En **Gemini**, **Groq**, **OpenRouter** y **Mistral**: para una palabra da acepciones con
+  ejemplos; para una frase corta, paráfrasis; para texto largo se omite.
+- En **MyMemory**: traducciones alternativas de su memoria.
+- En **TexTra**: diccionario de sistema para pares con japonés (en↔ja, ja↔ko, ja↔zh, etc.).
+
+**Texto a voz (TTS)**
+- **TexTra** (japonés, inglés, chino, coreano) y **Groq** (inglés, árabe), además del Google ya existente.
+
+**Correcciones y limpieza**
+- TTS de Google arreglado.
+- MyMemory con peticiones POST + email opcional (más cuota y textos largos).
+- Motores muertos fuera: Reverso (bloqueo de IP en servidores) y LibreTranslate (instancias públicas caídas).
+- Bug del `_ENABLED` encadenado (solo desactivaba un motor) corregido.
+- Mejoras de UI: iconos de cada servicio en el selector y lista ordenada alfabéticamente.
+
+## Configuración de los motores nuevos
+
+Cada motor se activa poniendo su API key en el `.env` (que **no** se versiona). Nombres y dónde
+obtener cada clave (usa placeholders, nunca subas claves reales):
+
+```bash
+# DeepL (opcional; sin key cae al deeplx gratuito)
+MOZHI_DEEPL_API_KEY=your_key_here            # deepl.com/pro-api
+
+# Gemini (aistudio.google.com, gratis sin tarjeta)
+MOZHI_GEMINI_API_KEY=your_key_here
+# MOZHI_GEMINI_MODEL=gemini-flash-latest     # opcional
+
+# TexTra / NICT (mt-auto-minhon-mlt.ucri.jgn-x.jp, registro gratuito)
+MOZHI_TEXTRA_API_KEY=your_key_here
+MOZHI_TEXTRA_API_SECRET=your_secret_here
+MOZHI_TEXTRA_LOGIN_ID=your_login_id
+
+# Groq (console.groq.com, gratis)
+MOZHI_GROQ_API_KEY=your_key_here
+# MOZHI_GROQ_MODEL=llama-3.1-8b-instant      # opcional
+# MOZHI_GROQ_TTS_VOICE=diana                 # opcional
+
+# OpenRouter (openrouter.ai) — una sola key para los tres motores
+MOZHI_OPENROUTER_API_KEY=your_key_here
+# MOZHI_OPENROUTER_GPTOSS_MODEL / _GEMMA_MODEL / _NEMOTRON_MODEL  # opcionales
+
+# Mistral (console.mistral.ai)
+MOZHI_MISTRAL_API_KEY=your_key_here
+# MOZHI_MISTRAL_MODEL=mistral-small-latest   # opcional
+```
+
+También se puede desactivar cualquier motor con `MOZHI_<NOMBRE>_ENABLED=false`.
 
 ## Build local (self-hosted)
 
@@ -17,17 +80,17 @@ Para reconstruir tras un cambio y recrear el contenedor:
 Requiere que `docker-compose.yml` use `image: mozhi-fork:local`.
 Las variables de entorno (API keys de DeepL, Gemini, TexTra, etc.) van en `.env`, que no se versiona.
 
+---
+
 <div align="center">
   <img src="public/assets/mozhi.png" width="192" height="192" alt="Mozhi logo">
   <h1>Mozhi</h1>
-
   <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
     <img alt="License: AGPLv3" src="https://shields.io/badge/License-AGPL%20v3-blue.svg">
   </a>
   <a href="https://matrix.to/#/#mozhi:frei.chat">
   	<img alt="Matrix" src="https://img.shields.io/badge/matrix-000000?style=for-the-badge&logo=Matrix&logoColor=white">
   </a>
-
   <h3>Mozhi (spelt moḻi) is an alternative-frontend for many translation engines.</h3>
 </div>
 
@@ -36,6 +99,7 @@ It was initially made as a maintained fork/rewrite of [simplytranslate](https://
 I'm initially focusing on the api and engines, but eventually Mozhi will have a functioning CLI and webapp.
 
 ## Supported Engines:
+
 - Google
 - Reverso
 - DeepL
@@ -45,16 +109,20 @@ I'm initially focusing on the api and engines, but eventually Mozhi will have a 
 - DuckDuckGo ( 1-1 with Bing Translate )
 
 ## Projects that use Mozhi
+
 - [select2translate](https://codeberg.org/aryak/select2translate) - Translate text from your selection clipboard using Mozhi
 - [Crow Translate](https://invent.kde.org/office/crow-translate) - KDE Project written in C++ / Qt that allows you to translate and speak text using Mozhi
 
 ## Where is the engine code?
+
 The engine code has recently been split from the main codebase. Please check [aryak/libmozhi](https://codeberg.org/aryak/libmozhi) for it.
 
 ## Installing
+
 You can either use [docker](https://codeberg.org/aryak/mozhi/src/branch/master/compose.yml) or the build artifacts from [CI jobs on git.projectsegfau.lt](https://git.projectsegfau.lt/arya/mozhi/actions).
 
 ## Building
+
 ```
 GOPRIVATE=codeberg.org/aryak/libmozhi # Get latest commit since proxy server is a bit slow
 go mod download
@@ -63,14 +131,17 @@ go build -o mozhi
 ```
 
 ## API Docs
+
 Mozhi makes use of swagger (using the fiber middleware) to manage the documentation of the API.
 
 You can find it in /api/swagger of any instance ([example](https://mozhi.aryak.me/api/swagger/index.html)).
 
 ## Why does Reverso not work?
+
 Reverso sometimes blocks IPs of servers hosting mozhi, and since it doesn't have IPv6, an IP Rotator won't be viable. For more information, check out [#27](https://codeberg.org/aryak/mozhi/issues/27)
 
 ## Configuration
+
 Features of Mozhi can be customized and toggled on/off using Environment Variables.
 
 - `MOZHI_HOST`: Host address the webserver listens on (if hosting API). Defaults to listening on all interfaces
@@ -82,6 +153,7 @@ Features of Mozhi can be customized and toggled on/off using Environment Variabl
 - `MOZHI_DEFAULT_ENGINE`: Engine to default to if no engine is set by user. Defaults to `google`
 
 These envvars turn off/on engines. By default all of them are enabled.
+
 - `MOZHI_GOOGLE_ENABLED`
 - `MOZHI_REVERSO_ENABLED`
 - `MOZHI_DEEPL_ENABLED`
@@ -113,6 +185,7 @@ These envvars turn off/on engines. By default all of them are enabled.
 | [mozhi.catsarch.com (I2P)](http://b5jb6gilzl43u5js4d7jtcqmsk3xdjfbiowudij5yyhpm5bub3kq.b32.i2p) | No | USA / Germany | Netcup |
 
 ## Features
+
 - An all mode where the responses of all supported engines will be shown.
 - Autodetect which will show the language that was detected
 - Text-To-Speech for multiple engines
@@ -120,9 +193,11 @@ These envvars turn off/on engines. By default all of them are enabled.
 - All the stuff you expect from a translation utility :)
 
 ## Etymology
+
 Mozhi is the word in Tamil for language. Simple as that :P
 
 ## Credits
+
 - [Arya](https://aryak.me): creator
 - [Midou36o](https://midou.dev): made the logo
 - [py_](https://github.com/supercolbat): Design files
