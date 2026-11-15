@@ -66,7 +66,7 @@ func HandleIndex(c *fiber.Ctx) error {
 	toCookie := c.Cookies("to")
 	var engine = utils.GetQueryOrFormValue(c, "engine")
 	if engine == "" || !slices.Contains(enginesAsArray, engine) {
-		if engineCookie != "" {
+		if engineCookie != "" && slices.Contains(enginesAsArray, engineCookie) {
 			engine = engineCookie
 		} else {
 			engine = defaultEngine
@@ -104,6 +104,9 @@ func HandleIndex(c *fiber.Ctx) error {
 	}
 
 	originalText := utils.GetQueryOrFormValue(c, "text")
+	if utils.TextTooLong(originalText) {
+		return utils.TextTooLongError()
+	}
 	to := utils.GetQueryOrFormValue(c, "to")
 	from := utils.GetQueryOrFormValue(c, "from")
 	if from == "" {
@@ -127,7 +130,8 @@ func HandleIndex(c *fiber.Ctx) error {
 	var ttsTo string
 	if engine != "" && originalText != "" && from != "" && to != "" {
 		if engine == "all" {
-			transmany = libmozhi.TranslateAll(to, from, originalText)
+			// Only the engines enabled on this instance.
+			transmany, _ = libmozhi.TranslateSome(utils.EnabledEngines(), to, from, originalText)
 			translationExists = true
 		} else if engine == "some" {
 			// The error doesn't really matter since it just checks if the engines are valid, which is already checked in the code at the beginning of the func

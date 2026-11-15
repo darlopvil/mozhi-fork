@@ -60,6 +60,12 @@ func HandleTTS(c *fiber.Ctx) error {
 	if engine == "" || text == "" || lang == "" {
 		return fiber.NewError(fiber.StatusBadRequest, "engine, lang, text are required query strings.")
 	}
+	if !utils.EngineEnabled(engine) {
+		return fiber.NewError(fiber.StatusBadRequest, "engine "+engine+" is not enabled")
+	}
+	if utils.TextTooLong(text) {
+		return utils.TextTooLongError()
+	}
 	data, err := libmozhi.TTS(engine, lang, text)
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
@@ -86,17 +92,29 @@ func HandleTranslate(c *fiber.Ctx) error {
 	if engine == "" || from == "" || to == "" || text == "" {
 		return fiber.NewError(fiber.StatusBadRequest, "from, to, engine, text are required query strings.")
 	}
+	if utils.TextTooLong(text) {
+		return utils.TextTooLongError()
+	}
 	if engine == "all" {
-		dataarr := libmozhi.TranslateAll(to, from, text)
+		// Only the engines enabled on this instance.
+		dataarr, _ := libmozhi.TranslateSome(utils.EnabledEngines(), to, from, text)
 		return c.JSON(dataarr)
 	} else if strings.Contains(engine, ",") == true {
 		engineArr := strings.Split(engine, ",")
+		for _, e := range engineArr {
+			if !utils.EngineEnabled(e) {
+				return fiber.NewError(fiber.StatusBadRequest, "engine "+e+" is not enabled")
+			}
+		}
 		dataarr, err := libmozhi.TranslateSome(engineArr, to, from, text)
 		if err != nil {
 			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 		}
 		return c.JSON(dataarr)
 	} else {
+		if !utils.EngineEnabled(engine) {
+			return fiber.NewError(fiber.StatusBadRequest, "engine "+engine+" is not enabled")
+		}
 		data, err := libmozhi.Translate(engine, to, from, text)
 		if err != nil {
 			return fiber.NewError(fiber.StatusInternalServerError, err.Error())

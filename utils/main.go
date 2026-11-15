@@ -3,6 +3,10 @@ package utils
 import (
 	"os"
 	"regexp"
+	"sort"
+	"strconv"
+	"strings"
+	"unicode/utf8"
 
 	"codeberg.org/aryak/libmozhi"
 	"github.com/gofiber/fiber/v2"
@@ -38,26 +42,14 @@ func EngineList() map[string]string {
 	engines := map[string]string{"all": "All Engines", "some": "Some Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "gemini": "Gemini", "mymemory": "MyMemory", "textra": "TexTra (NICT)", "yandex": "Yandex", "groq": "Groq (LLM)","gptoss":   "ERNIE (OpenRouter)",
 "gemma":    "Gemma (OpenRouter)",
 "nemotron": "Nemotron (OpenRouter)", "mistral": "Mistral",}
-	if EnvTrueNoExist("MOZHI_GOOGLE_ENABLED") == false {
-		delete(engines, "google")
-	}
-	if EnvTrueNoExist("MOZHI_DEEPL_ENABLED") == false {
-		delete(engines, "deepl")
-	}
-	if EnvTrueNoExist("MOZHI_DUCKDUCKGO_ENABLED") == false {
-		delete(engines, "duckduckgo")
-	}
-	if EnvTrueNoExist("MOZHI_MYMEMORY_ENABLED") == false {
-		delete(engines, "mymemory")
-	}
-	if EnvTrueNoExist("MOZHI_YANDEX_ENABLED") == false {
-		delete(engines, "yandex")
-	}
-	if EnvTrueNoExist("MOZHI_GEMINI_ENABLED") == false {
-		delete(engines, "gemini")
-	}
-	if EnvTrueNoExist("MOZHI_TEXTRA_ENABLED") == false {
-		delete(engines, "textra")
+	// Every engine can be turned off with MOZHI_<ID>_ENABLED=false (on by default).
+	for id := range engines {
+		if id == "all" || id == "some" {
+			continue
+		}
+		if !EnvTrueNoExist("MOZHI_" + strings.ToUpper(id) + "_ENABLED") {
+			delete(engines, id)
+		}
 	}
 	return engines
 }
@@ -79,4 +71,53 @@ func DeDuplicateLists(input []libmozhi.List) []libmozhi.List {
 	}
 
 	return result
+}
+
+// EnabledEngines returns the ids of the enabled translation engines, without
+// the "all" and "some" pseudo-engines. All mode translates with exactly these.
+func EnabledEngines() []string {
+	engines := EngineList()
+	ids := []string{}
+	for id := range engines {
+		if id != "all" && id != "some" {
+			ids = append(ids, id)
+		}
+	}
+	// Stable order, by display name like the dropdown: map order is random
+	// and All mode returns its results in this order.
+	sort.Slice(ids, func(i, j int) bool { return engines[ids[i]] < engines[ids[j]] })
+	return ids
+}
+
+// EngineEnabled reports whether id is a translation engine enabled on this
+// instance. Engines that are disabled, or not listed at all, are refused by
+// the web UI and the API alike.
+func EngineEnabled(id string) bool {
+	if id == "all" || id == "some" {
+		return false
+	}
+	_, ok := EngineList()[id]
+	return ok
+}
+
+// MaxTextLength is the longest text (in characters) accepted for translation
+// or TTS: MOZHI_MAX_TEXT_LENGTH, default 5000 (the limit of Google's own web
+// translator), 0 for no limit. In All mode one request fans out to every
+// enabled engine, so an unbounded text multiplies quota use across all of them.
+func MaxTextLength() int {
+	if n, err := strconv.Atoi(os.Getenv("MOZHI_MAX_TEXT_LENGTH")); err == nil && n >= 0 {
+		return n
+	}
+	return 5000
+}
+
+// TextTooLong reports whether text exceeds MaxTextLength.
+func TextTooLong(text string) bool {
+	max := MaxTextLength()
+	return max > 0 && utf8.RuneCountInString(text) > max
+}
+
+// TextTooLongError is the error returned for a text over the limit.
+func TextTooLongError() error {
+	return fiber.NewError(fiber.StatusRequestEntityTooLarge, "text is longer than "+strconv.Itoa(MaxTextLength())+" characters")
 }

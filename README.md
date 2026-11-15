@@ -69,7 +69,7 @@ MOZHI_MISTRAL_API_KEY=your_key_here
 # MOZHI_MISTRAL_MODEL=mistral-small-latest   # opcional
 ```
 
-También se puede desactivar cualquier motor con `MOZHI_<NOMBRE>_ENABLED=false`.
+También se puede desactivar cualquier motor con `MOZHI_<NOMBRE>_ENABLED=false` (web, API y modo All), y limitar la longitud del texto con `MOZHI_MAX_TEXT_LENGTH` (por defecto 5000 caracteres; 0 = sin límite).
 
 ## Build local (self-hosted)
 
