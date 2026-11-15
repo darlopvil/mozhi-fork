@@ -12,8 +12,10 @@ Traductores, diccionario y voz sobre el Mozhi original:
 - **DeepL oficial** — usa la API oficial cuando hay API key (si no, cae al deeplx gratuito).
 - **Gemini** (LLM) — traducción de alta calidad con contexto y matiz.
 - **TexTra (NICT)** — motor japonés de un organismo público japonés, gratuito.
-- **Groq** (LLM) — Llama a gran velocidad.
-- **OpenRouter** — tres motores separados: GPT-OSS, Gemma y Nemotron (un modelo cada uno).
+- **Groq** (LLM) — modelos abiertos (gpt-oss) a gran velocidad.
+- **OpenRouter** — tres motores separados por familia de modelos: ERNIE (Baidu), Gemma (Google) y Nemotron (NVIDIA).
+  Los modelos gratis vigentes de cada familia se descubren solos: si OpenRouter jubila uno, el motor
+  pasa al siguiente sin tocar la configuración.
 - **Mistral** (LLM) — modelos europeos.
 
 **Diccionario / palabras alternativas** (senses, ejemplos, sinónimos, antónimos)
@@ -52,12 +54,15 @@ MOZHI_TEXTRA_LOGIN_ID=your_login_id
 
 # Groq (console.groq.com, gratis)
 MOZHI_GROQ_API_KEY=your_key_here
-# MOZHI_GROQ_MODEL=llama-3.1-8b-instant      # opcional
+# MOZHI_GROQ_MODEL=openai/gpt-oss-20b,openai/gpt-oss-120b  # opcional: lista de preferencia, se usa el primero activo
 # MOZHI_GROQ_TTS_VOICE=diana                 # opcional
 
 # OpenRouter (openrouter.ai) — una sola key para los tres motores
 MOZHI_OPENROUTER_API_KEY=your_key_here
-# MOZHI_OPENROUTER_GPTOSS_MODEL / _GEMMA_MODEL / _NEMOTRON_MODEL  # opcionales
+# MOZHI_OPENROUTER_GPTOSS_FAMILY=baidu/ernie       # opcionales: familia de cada motor
+# MOZHI_OPENROUTER_GEMMA_FAMILY=google/gemma
+# MOZHI_OPENROUTER_NEMOTRON_FAMILY=nvidia/nemotron
+# MOZHI_OPENROUTER_GPTOSS_MODEL / _GEMMA_MODEL / _NEMOTRON_MODEL  # opcionales: modelo preferido, mientras exista
 
 # Mistral (console.mistral.ai)
 MOZHI_MISTRAL_API_KEY=your_key_here
