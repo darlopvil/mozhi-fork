@@ -26,6 +26,7 @@ Traductores, diccionario y voz sobre el Mozhi original:
 
 **Texto a voz (TTS)**
 - **TexTra** (japonés, inglés, chino, coreano) y **Groq** (inglés, árabe), además del Google ya existente.
+- Textos largos en streaming: se parten por frases según el límite de cada motor (Google 200 caracteres, TexTra 120, Groq 600) y el audio empieza a sonar en cuanto está el primer trozo.
 
 **Correcciones y limpieza**
 - TTS de Google arreglado.

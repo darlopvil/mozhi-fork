@@ -121,3 +121,14 @@ func TextTooLong(text string) bool {
 func TextTooLongError() error {
 	return fiber.NewError(fiber.StatusRequestEntityTooLarge, "text is longer than "+strconv.Itoa(MaxTextLength())+" characters")
 }
+
+// ReadBufferSize is Fiber's per-connection read buffer, which caps the
+// request line plus headers (default 4096 bytes: GET requests over ~4 KB got
+// 431). It is sized for a MaxTextLength text in the URL of a TTS link: up to
+// 12 bytes per character once percent-encoded, plus 8 KB for headers.
+func ReadBufferSize() int {
+	if max := MaxTextLength(); max > 0 {
+		return 12*max + 8192
+	}
+	return 1 << 20
+}

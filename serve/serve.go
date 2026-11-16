@@ -57,6 +57,8 @@ func Serve(host, port string) {
 		Views:   engine,
 		Prefork: false,
 		AppName: "Mozhi",
+		// Room for a MOZHI_MAX_TEXT_LENGTH text in the URL of a TTS link.
+		ReadBufferSize: utils.ReadBufferSize(),
 		// kind of screwed up way to fix rate limits
 		EnableTrustedProxyCheck: true,
 		TrustedProxies:          []string{"0.0.0.0/0"},

@@ -1,9 +1,9 @@
 package pages
 
 import (
+	"bufio"
 	"encoding/base64"
 	"io"
-	"net/http"
 	"strings"
 
 	"codeberg.org/aryak/libmozhi"
@@ -67,18 +67,18 @@ func HandleTTS(c *fiber.Ctx) error {
 	if utils.TextTooLong(text) {
 		return utils.TextTooLongError()
 	}
-	data, err := libmozhi.TTS(engine, lang, text)
+	// Long texts are synthesized in chunks (each engine caps the text per
+	// request); every chunk is sent as soon as it is ready, so playback starts
+	// after the first one. Audio types are never compressed, so it streams.
+	contentType, write, err := libmozhi.TTSStream(engine, lang, text)
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
-	// Google returns MP3, TexTra and Groq return WAV: send the real type.
-	// Bare MP3 frames (no ID3 tag) are not recognised by the sniffer.
-	contentType := http.DetectContentType(data)
-	if contentType == "application/octet-stream" {
-		contentType = "audio/mpeg"
-	}
 	c.Set("Content-Type", contentType)
-	return c.Status(fiber.StatusOK).Send(data)
+	c.Context().SetBodyStreamWriter(func(w *bufio.Writer) {
+		_ = write(w)
+	})
+	return nil
 }
 
 // HandleTranslate godoc
