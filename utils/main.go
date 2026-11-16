@@ -39,9 +39,9 @@ func Sanitize(str string, strip string) string {
 }
 
 func EngineList() map[string]string {
-	engines := map[string]string{"all": "All Engines", "some": "Some Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "gemini": "Gemini", "mymemory": "MyMemory", "textra": "TexTra (NICT)", "yandex": "Yandex", "groq": "Groq (LLM)","gptoss":   "ERNIE (OpenRouter)",
-"gemma":    "Gemma (OpenRouter)",
-"nemotron": "Nemotron (OpenRouter)", "mistral": "Mistral",}
+	engines := map[string]string{"all": "All Engines", "some": "Some Engines", "google": "Google", "deepl": "DeepL", "duckduckgo": "DuckDuckGo", "gemini": "Gemini", "mymemory": "MyMemory", "textra": "TexTra (NICT)", "yandex": "Yandex", "groq": "Groq (LLM)", "gptoss": "ERNIE (OpenRouter)",
+		"gemma":    "Gemma (OpenRouter)",
+		"nemotron": "Nemotron (OpenRouter)", "mistral": "Mistral"}
 	// Every engine can be turned off with MOZHI_<ID>_ENABLED=false (on by default).
 	for id := range engines {
 		if id == "all" || id == "some" {
