@@ -46,6 +46,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - TexTra's small request limit (about 3 requests per 2 minutes for the whole account) is shared sensibly: translation first, the dictionary only when a slot is left, and Google reads the audio when TexTra has no slot.
 - Favourite languages pinned at the top of the selectors (`MOZHI_PINNED_LANGS`).
 - Service icons in the engine selector, sorted alphabetically.
+- `/api/health`: the state of every engine, taken from real requests, so checking it spends no quota. `?engine=<id>` (plus `&kind=tts` for speech) answers 503 while that engine is failing, for uptime monitors; a failing engine is re-checked at most every 2 minutes, so it turns green again as soon as it recovers.
 
 ## Configuration
 

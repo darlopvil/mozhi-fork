@@ -109,6 +109,7 @@ func Serve(host, port string) {
 	api.Get("/target_languages", pages.HandleTargetLanguages)
 	api.Get("/engines", pages.HandleEngines)
 	api.Get("/tts", pages.HandleTTS)
+	api.Get("/health", pages.HandleHealth)
 	api.Get("/version", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
 			"fiberversion": fiber.Version,
