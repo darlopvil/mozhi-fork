@@ -14,52 +14,38 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 
 ---
 
-## What this fork adds
+## Changes from upstream
 
-**New engines**
-- **Official DeepL** — uses the official API when an API key is set (otherwise falls back to the free deeplx).
-- **Gemini** (LLM) — through the native API, with a model preference list: a saturated or retired
-  model falls through to the next one.
-- **TexTra (NICT)** — Japanese engine from a Japanese public research institute, free. It allows
-  about 3 requests per 2 minutes for the whole account (translation, dictionary and TTS together):
-  Mozhi keeps count, gives translation priority, only requests the dictionary when a slot is left,
-  and lets Google read the audio when TexTra has no slot.
-- **Groq** (LLM) — open models (gpt-oss) at high speed, with a model preference list.
-- **OpenRouter** — three engines, one per model family: ERNIE (Baidu), Gemma (Google) and Nemotron
-  (NVIDIA). The current free models of each family are discovered automatically: when OpenRouter
-  retires one, the engine moves to the next without touching the configuration.
-- **Mistral** (LLM) — European models.
+- Reverso and LibreTranslate removed: Reverso is IP-blocked on servers and LibreTranslate's public instances shut down.
+- DeepL uses the official API when an API key is set (the free deeplx otherwise).
+- MyMemory uses POST requests plus an optional email (more quota, longer texts).
+- `MOZHI_<ID>_ENABLED` works for every engine and everywhere: web UI, API, All mode and TTS. All mode only uses the enabled engines, in a stable order.
+- Text length is capped (`MOZHI_MAX_TEXT_LENGTH`, 5000 characters by default).
+- Audio is only generated when you press play, and is sent with its real type (MP3 or WAV).
 
-**Dictionary / alternative words** (senses, examples, synonyms, antonyms)
-- **Gemini**, **Groq**, **OpenRouter** and **Mistral**: senses with examples for a single word,
-  paraphrases for a short phrase, skipped for long text.
-- **MyMemory**: alternative translations from its memory.
-- **TexTra**: system dictionary for language pairs with Japanese (en↔ja, ja↔ko, ja↔zh, etc.).
+## Fixes
 
-**Text-to-speech (TTS)**
-- **TexTra** (Japanese, English, Chinese, Korean) and **Groq** (English, Arabic), besides Google.
-- Long texts are streamed: split at sentence boundaries within each engine's limit (Google 200
-  characters, TexTra 120, Groq 600), and audio starts playing as soon as the first chunk is ready.
-- Audio is only generated when you press play (`preload="none"`) and is sent with its real type (MP3 or WAV).
-
-**Reliability**
-- A failing or hanging engine no longer crashes the instance or holds the others back: every engine
-  has its own timeout, panics are recovered, and All mode answers within 50 s.
-- DuckDuckGo retries on a fresh connection during its blocking windows.
-- Yandex and MyMemory no longer show their errors (or MyMemory's quota warning) as the translation.
-- `_ENABLED` is honoured in the web UI, the API, All mode and TTS, and text length is capped.
-
-**Fixes**
+- One failing or hanging engine crashed the whole instance or stalled All mode. Every engine now has its own timeout, panics are recovered, and All mode answers within 50 s.
 - Texts containing `&` or `+` broke Google (empty translation), its dictionary and Yandex's transliteration.
-- Unescaped TTS links; `/switchlanguages` uses 303 instead of a 301 that browsers cached.
-- Google TTS fixed; MyMemory uses POST requests plus an optional email (more quota, longer texts).
-- Dead engines removed: Reverso (IP-blocked on servers) and LibreTranslate (public instances shut down).
+- Google TTS fixed.
+- Yandex and MyMemory crashed on error responses, and MyMemory's daily quota warning was shown as the translation.
+- DuckDuckGo crashed when its token request failed; it now retries on a fresh connection during its blocking windows.
+- Gemini hung when its model was saturated; it now uses the native API and falls back across models.
+- Free LLM models retired by their providers broke their engines until the configuration was edited by hand.
+- The chosen language was lost when switching engines, because each engine names some languages its own way (`es` / `es-ES`, `zh-CN` / `zh-Hans`, `nb` / `no`).
+- TTS links weren't escaped, and `/switchlanguages` answered with a 301 that browsers cached.
+- Only one engine could be disabled at a time (chained `_ENABLED` checks).
 
-**Interface**
+## Features
+
+- New engines: Gemini, TexTra (NICT, Japanese), Groq, OpenRouter (ERNIE, Gemma, Nemotron) and Mistral.
+- Free models handled automatically: the OpenRouter engines discover the current free models of their family; Groq and Gemini use model preference lists.
+- Dictionary and alternative words: senses, examples and paraphrases from the LLM engines, alternatives from MyMemory, and TexTra's system dictionary for Japanese pairs.
+- Text-to-speech with TexTra (Japanese, English, Chinese, Korean) and Groq (English, Arabic), besides Google.
+- Long texts are read aloud in streamed chunks: audio starts as soon as the first chunk is ready.
+- TexTra's small request limit (about 3 requests per 2 minutes for the whole account) is shared sensibly: translation first, the dictionary only when a slot is left, and Google reads the audio when TexTra has no slot.
+- Favourite languages pinned at the top of the selectors (`MOZHI_PINNED_LANGS`).
 - Service icons in the engine selector, sorted alphabetically.
-- The chosen language survives engine switches, even when engines name it differently
-  (`es` / `es-ES`, `zh-CN` / `zh-Hans`, `nb` / `no`).
-- Favourite languages pinned at the top of the selectors.
 
 ## Configuration
 
