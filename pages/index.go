@@ -122,6 +122,16 @@ func HandleIndex(c *fiber.Ctx) error {
 			to = toCookie
 		}
 	}
+	// Each engine may name a language its own way (es / es-ES, zh-CN /
+	// zh-Hans): match the choice to this engine's list, and fall back to the
+	// configured defaults, never to the first option of the list.
+	defaultLang, defaultLangTarget := defaultLangs(sourceLanguages, targetLanguages)
+	if from = libmozhi.ResolveLang(sourceLanguages, from); from == "" {
+		from = defaultLang
+	}
+	if to = libmozhi.ResolveLang(targetLanguages, to); to == "" {
+		to = defaultLangTarget
+	}
 
 	var translation libmozhi.LangOut
 	var translationExists bool
@@ -157,15 +167,6 @@ func HandleIndex(c *fiber.Ctx) error {
 		translationExists = false
 	}
 
-	defaultLang := os.Getenv("MOZHI_DEFAULT_SOURCE_LANG")
-	preferAutoDetect := os.Getenv("MOZHI_DEFAULT_PREFER_AUTODETECT")
-	defaultLangTarget := os.Getenv("MOZHI_DEFAULT_TARGET_LANG")
-	if defaultLang == "" || (preferAutoDetect == "true" && len(sourceLanguages) > 0 && sourceLanguages[0].Id == "auto") {
-		defaultLang = "auto"
-	}
-	if defaultLangTarget == "" {
-		defaultLangTarget = "en"
-	}
 	cookie := new(fiber.Cookie)
 	cookie.Name = "engine"
 	cookie.Value = engine
@@ -213,4 +214,19 @@ func HandleIndex(c *fiber.Ctx) error {
 // query-escaped: a text containing &, #, + or % used to be cut or corrupted.
 func ttsURL(lang, engine, text string) string {
 	return "/api/tts?lang=" + url.QueryEscape(lang) + "&engine=" + url.QueryEscape(engine) + "&text=" + url.QueryEscape(text)
+}
+
+// defaultLangs returns the configured default source and target languages
+// (MOZHI_DEFAULT_SOURCE_LANG, MOZHI_DEFAULT_PREFER_AUTODETECT,
+// MOZHI_DEFAULT_TARGET_LANG) matched to the codes of these lists.
+func defaultLangs(source, target []libmozhi.List) (string, string) {
+	from := os.Getenv("MOZHI_DEFAULT_SOURCE_LANG")
+	if from == "" || (os.Getenv("MOZHI_DEFAULT_PREFER_AUTODETECT") == "true" && len(source) > 0 && source[0].Id == "auto") {
+		from = "auto"
+	}
+	to := os.Getenv("MOZHI_DEFAULT_TARGET_LANG")
+	if to == "" {
+		to = "en"
+	}
+	return libmozhi.ResolveLang(source, from), libmozhi.ResolveLang(target, to)
 }
