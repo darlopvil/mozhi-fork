@@ -142,3 +142,19 @@ func PinnedLangs() []string {
 	}
 	return codes
 }
+
+// TTSEngineFor returns the engine that reads engine's texts aloud: its own
+// text-to-speech when it has one, otherwise Microsoft's (when its Speech key
+// is set) or Google's; "" when none of them is enabled.
+func TTSEngineFor(engine string) string {
+	speech := EngineEnabled("microsoft") && os.Getenv("MOZHI_MICROSOFT_SPEECH_KEY") != ""
+	switch {
+	case engine == "microsoft" && speech, engine == "google", engine == "textra", engine == "groq":
+		return engine
+	case speech:
+		return "microsoft"
+	case EngineEnabled("google"):
+		return "google"
+	}
+	return ""
+}

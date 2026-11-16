@@ -155,13 +155,15 @@ func HandleIndex(c *fiber.Ctx) error {
 			}
 			translationExists = true
 		}
-		if engine == "google" || engine == "reverso" || engine == "textra" || engine == "groq" {
+		// Every single-engine result can be read aloud: by the engine's own
+		// text-to-speech, or by Microsoft's or Google's (utils.TTSEngineFor).
+		if ttsEngine := utils.TTSEngineFor(engine); ttsEngine != "" && engine != "all" && engine != "some" {
 			if from == "auto" && translation.AutoDetect != "" {
-				ttsFrom = ttsURL(translation.AutoDetect, engine, originalText)
-			} else {
-				ttsFrom = ttsURL(from, engine, originalText)
+				ttsFrom = ttsURL(translation.AutoDetect, ttsEngine, originalText)
+			} else if from != "auto" {
+				ttsFrom = ttsURL(from, ttsEngine, originalText)
 			}
-			ttsTo = ttsURL(to, engine, translation.OutputText)
+			ttsTo = ttsURL(to, ttsEngine, translation.OutputText)
 		}
 	} else {
 		translationExists = false

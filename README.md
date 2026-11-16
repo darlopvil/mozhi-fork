@@ -41,7 +41,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - New engines: Gemini, TexTra (NICT, Japanese), Groq, Qwen (through Groq), Cohere and Microsoft Translator (with romanization of non-Latin scripts).
 - Model preference lists: when a provider retires a model, Gemini, Groq, Qwen and Cohere move on to the next one without touching the configuration (Gemini also when a model is saturated).
 - Dictionary and alternative words: senses, examples and paraphrases from the LLM engines, alternatives from MyMemory, TexTra's system dictionary for Japanese pairs, and Microsoft Translator's dictionary with examples for pairs with English.
-- Text-to-speech with TexTra (Japanese, English, Chinese, Korean) and Groq (English, Arabic), besides Google.
+- Text-to-speech with Microsoft (neural voices for most languages), TexTra (Japanese, English, Chinese, Korean) and Groq (English, Arabic), besides Google. Engines without their own text-to-speech are read aloud by Microsoft, or by Google.
 - Long texts are read aloud in streamed chunks: audio starts as soon as the first chunk is ready.
 - TexTra's small request limit (about 3 requests per 2 minutes for the whole account) is shared sensibly: translation first, the dictionary only when a slot is left, and Google reads the audio when TexTra has no slot.
 - Favourite languages pinned at the top of the selectors (`MOZHI_PINNED_LANGS`).
@@ -82,6 +82,9 @@ MOZHI_COHERE_API_KEY=your_key_here
 # Microsoft Translator (an Azure Translator resource; free tier F0: 2 million characters a month)
 MOZHI_MICROSOFT_API_KEY=your_key_here
 # MOZHI_MICROSOFT_REGION=westeurope          # only for regional resources, not global ones
+# MOZHI_MICROSOFT_SPEECH_KEY=your_key_here    # text-to-speech: an Azure Speech resource (free tier F0: 500,000 characters a month)
+# MOZHI_MICROSOFT_SPEECH_REGION=westeurope    # the Speech resource's region
+# MOZHI_MICROSOFT_TTS_VOICES=ja=ja-JP-NanamiNeural,es=es-ES-ElviraNeural  # optional: voice per language
 
 # MyMemory (optional: an email raises the daily quota)
 # MOZHI_MYMEMORY_EMAIL=you@example.com
