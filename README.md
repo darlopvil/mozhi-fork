@@ -38,7 +38,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 
 ## Features
 
-- New engines: Gemini, TexTra (NICT, Japanese), Groq, Qwen (through Groq), Cohere and Mistral.
+- New engines: Gemini, TexTra (NICT, Japanese), Groq, Qwen (through Groq) and Cohere.
 - Model preference lists: when a provider retires a model, Gemini, Groq, Qwen and Cohere move on to the next one without touching the configuration (Gemini also when a model is saturated).
 - Dictionary and alternative words: senses, examples and paraphrases from the LLM engines, alternatives from MyMemory, and TexTra's system dictionary for Japanese pairs.
 - Text-to-speech with TexTra (Japanese, English, Chinese, Korean) and Groq (English, Arabic), besides Google.
@@ -79,10 +79,6 @@ MOZHI_COHERE_API_KEY=your_key_here
 # MOZHI_COHERE_MODEL=north-small-translate-1.0,command-a-translate-08-2025  # optional: translation models
 # MOZHI_COHERE_DICT_MODEL=command-a-plus-05-2026,command-a-03-2025          # optional: dictionary models
 
-# Mistral (console.mistral.ai)
-MOZHI_MISTRAL_API_KEY=your_key_here
-# MOZHI_MISTRAL_MODEL=mistral-small-latest   # optional
-
 # MyMemory (optional: an email raises the daily quota)
 # MOZHI_MYMEMORY_EMAIL=you@example.com
 
@@ -96,7 +92,7 @@ MOZHI_MISTRAL_API_KEY=your_key_here
 ```
 
 Any engine can be disabled with `MOZHI_<ID>_ENABLED=false` (web UI, API, All mode and TTS at once).
-IDs: `google deepl duckduckgo mymemory yandex gemini textra groq qwen cohere mistral`.
+IDs: `google deepl duckduckgo mymemory yandex gemini textra groq qwen cohere`.
 
 The API is documented with Swagger at `/api/swagger/index.html` on the instance.
 
