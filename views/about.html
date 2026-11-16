@@ -37,7 +37,7 @@
     <li>TexTra's small request limit (about 3 requests per 2 minutes for the whole account) is shared sensibly: translation first, the dictionary only when a slot is left, and Google reads the audio when TexTra has no slot.</li>
     <li>Favourite languages pinned at the top of the selectors (<code>MOZHI_PINNED_LANGS</code>).</li>
     <li>Service icons in the engine selector, sorted alphabetically.</li>
-    <li><code>/api/health</code>: the state of every engine, taken from real requests, so checking it spends no quota. <code>?engine=&lt;id&gt;</code> (plus <code>&amp;kind=tts</code> for speech) answers 503 while that engine is failing, for uptime monitors; a failing engine is re-checked at most every 2 minutes, so it turns green again as soon as it recovers.</li>
+    <li><code>/api/health</code>: the state of every engine, taken from real requests. <code>?engine=&lt;id&gt;</code> (plus <code>&amp;kind=tts</code> for speech) answers 503 while that engine is failing, for uptime monitors. An engine that is failing, unused since start or unused for 12 hours is re-checked first with one short request (at most every 2 minutes), so a broken engine shows up even when nobody uses it, and turns green again as soon as it recovers.</li>
   </ul>
   <h2>What is Mozhi?</h2>
   <p>

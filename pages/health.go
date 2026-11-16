@@ -15,7 +15,7 @@ var started = time.Now()
 // HandleHealth godoc
 //
 //	@Summary		Health of the enabled engines, from real traffic
-//	@Description	Without engine: every enabled engine, always 200. With engine: that engine only, re-checked first if its last request failed (at most every 2 minutes), and 503 while it is failing.
+//	@Description	Without engine: every enabled engine, always 200. With engine: that engine only, re-checked first if it is failing, has had no request since start or none for 12 hours (at most every 2 minutes), and 503 while it is failing.
 //	@Param			engine	query	string	false	"Engine name"
 //	@Param			kind	query	string	false	"translate (default) or tts"
 //	@Router			/api/health [get]
