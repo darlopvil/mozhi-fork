@@ -11,7 +11,7 @@ Traductores, diccionario y voz sobre el Mozhi original:
 **Motores nuevos**
 - **DeepL oficial** — usa la API oficial cuando hay API key (si no, cae al deeplx gratuito).
 - **Gemini** (LLM) — traducción de alta calidad con contexto y matiz.
-- **TexTra (NICT)** — motor japonés de un organismo público japonés, gratuito.
+- **TexTra (NICT)** — motor japonés de un organismo público japonés, gratuito. Su límite es de unas 3 peticiones cada 2 minutos para toda la cuenta (traducción, diccionario y TTS juntos): Mozhi lleva la cuenta, da prioridad a la traducción, pide el diccionario solo si sobra hueco y, si no queda hueco para el audio, lo lee Google.
 - **Groq** (LLM) — modelos abiertos (gpt-oss) a gran velocidad.
 - **OpenRouter** — tres motores separados por familia de modelos: ERNIE (Baidu), Gemma (Google) y Nemotron (NVIDIA).
   Los modelos gratis vigentes de cada familia se descubren solos: si OpenRouter jubila uno, el motor
