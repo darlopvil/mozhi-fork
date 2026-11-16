@@ -1,6 +1,7 @@
 package pages
 
 import (
+	"net/url"
 	"os"
 	"slices"
 	"strings"
@@ -146,11 +147,11 @@ func HandleIndex(c *fiber.Ctx) error {
 		}
 		if engine == "google" || engine == "reverso" || engine == "textra" || engine == "groq" {
 			if from == "auto" && translation.AutoDetect != "" {
-				ttsFrom = "/api/tts?lang=" + translation.AutoDetect + "&engine=" + engine + "&text=" + originalText
+				ttsFrom = ttsURL(translation.AutoDetect, engine, originalText)
 			} else {
-				ttsFrom = "/api/tts?lang=" + from + "&engine=" + engine + "&text=" + originalText
+				ttsFrom = ttsURL(from, engine, originalText)
 			}
-			ttsTo = "/api/tts?lang=" + to + "&engine=" + engine + "&text=" + translation.OutputText
+			ttsTo = ttsURL(to, engine, translation.OutputText)
 		}
 	} else {
 		translationExists = false
@@ -206,4 +207,10 @@ func HandleIndex(c *fiber.Ctx) error {
 		"defaultLang":       defaultLang,
 		"defaultLangTarget": defaultLangTarget,
 	})
+}
+
+// ttsURL builds the /api/tts link for the audio players. Every value is
+// query-escaped: a text containing &, #, + or % used to be cut or corrupted.
+func ttsURL(lang, engine, text string) string {
+	return "/api/tts?lang=" + url.QueryEscape(lang) + "&engine=" + url.QueryEscape(engine) + "&text=" + url.QueryEscape(text)
 }

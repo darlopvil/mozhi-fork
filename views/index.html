@@ -98,8 +98,8 @@
       Transliteration: {{ newlinetobr .Translation.SourceTransliteration }}{{ end }}
       {{ if .TtsFrom }}
       <br>
-      <audio controls>
-        <source type="audio/mpeg" src="{{ .TtsFrom }}" />
+      <audio controls preload="none">
+        <source src="{{ .TtsFrom }}" />
       </audio>
       {{ end }}
       <br>
@@ -118,8 +118,8 @@
       Transliteration: {{ newlinetobr .TargetTransliteration }}{{ end }}
       {{ if $.TtsTo }}
       <br>
-      <audio controls>
-        <source type="audio/mpeg" src="{{ $.TtsTo }}" />
+      <audio controls preload="none">
+        <source src="{{ $.TtsTo }}" />
       </audio>
       {{ end }}
       <br>
@@ -137,8 +137,8 @@
       Transliteration: {{ newlinetobr .Translation.TargetTransliteration }}{{ end }}
       {{ if .TtsTo }}
       <br>
-      <audio controls>
-        <source type="audio/mpeg" src="{{ .TtsTo }}" />
+      <audio controls preload="none">
+        <source src="{{ .TtsTo }}" />
       </audio>
       {{ end }}
       <br>

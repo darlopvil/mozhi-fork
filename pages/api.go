@@ -3,6 +3,7 @@ package pages
 import (
 	"encoding/base64"
 	"io"
+	"net/http"
 	"strings"
 
 	"codeberg.org/aryak/libmozhi"
@@ -70,7 +71,13 @@ func HandleTTS(c *fiber.Ctx) error {
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
-	c.Set("Content-Type", "audio/mpeg")
+	// Google returns MP3, TexTra and Groq return WAV: send the real type.
+	// Bare MP3 frames (no ID3 tag) are not recognised by the sniffer.
+	contentType := http.DetectContentType(data)
+	if contentType == "application/octet-stream" {
+		contentType = "audio/mpeg"
+	}
+	c.Set("Content-Type", contentType)
 	return c.Status(fiber.StatusOK).Send(data)
 }
 

@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"runtime"
 	"strings"
@@ -120,16 +121,17 @@ func Serve(host, port string) {
 		from := utils.GetQueryOrFormValue(c, "from")
 		to := utils.GetQueryOrFormValue(c, "to")
 		text := utils.GetQueryOrFormValue(c, "text")
-		var swapText string
-		if engine != "all" && engine != "some" && text != "" {
+		swapText := text
+		// Same rules as a normal translation: enabled engines and length cap only.
+		if engine != "all" && engine != "some" && text != "" && utils.EngineEnabled(engine) && !utils.TextTooLong(text) {
 			translation, tlerr := libmozhi.Translate(engine, to, from, text)
 			if tlerr == nil {
 				swapText = translation.OutputText
-			} else {
-				swapText = text
 			}
 		}
-		return c.Redirect("/?engine="+engine+"&from="+to+"&to="+from+"&text="+swapText+"&redirected=true", 301)
+		// 303, not 301: a permanent redirect is cached by the browser, so the
+		// same swap was never translated again. Values are query-escaped.
+		return c.Redirect("/?engine="+url.QueryEscape(engine)+"&from="+url.QueryEscape(to)+"&to="+url.QueryEscape(from)+"&text="+url.QueryEscape(swapText)+"&redirected=true", fiber.StatusSeeOther)
 	})
 	app.Get("/about", pages.HandleAbout)
 	app.Use("/", filesystem.New(filesystem.Config{
