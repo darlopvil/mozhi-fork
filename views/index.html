@@ -172,13 +172,10 @@
     {{ if eq .Engine "groq" }}
     {{ template "reverso_extras" . }}
     {{ end }}
-    {{ if eq .Engine "gptoss" }}
+    {{ if eq .Engine "qwen" }}
     {{ template "reverso_extras" . }}
     {{ end }}
-    {{ if eq .Engine "gemma" }}
-    {{ template "reverso_extras" . }}
-    {{ end }}
-    {{ if eq .Engine "nemotron" }}
+    {{ if eq .Engine "cohere" }}
     {{ template "reverso_extras" . }}
     {{ end }}
     {{ if eq .Engine "mistral" }}
