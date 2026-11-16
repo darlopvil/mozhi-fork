@@ -72,6 +72,8 @@ MOZHI_MISTRAL_API_KEY=your_key_here
 
 También se puede desactivar cualquier motor con `MOZHI_<NOMBRE>_ENABLED=false` (web, API y modo All), y limitar la longitud del texto con `MOZHI_MAX_TEXT_LENGTH` (por defecto 5000 caracteres; 0 = sin límite).
 
+Idiomas favoritos: con `MOZHI_PINNED_LANGS=ja,es,en` esos idiomas salen los primeros en los dos desplegables (cada motor con su propio código: `es` es `es-ES` en MyMemory).
+
 ## Build local (self-hosted)
 
 Este fork se construye localmente, sin registry. Estructura esperada:

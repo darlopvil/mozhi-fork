@@ -36,15 +36,12 @@
     <div class="wrap languages center-area">
       <div class="language">
         <select name="from" aria-label="Source language" id="sourceLanguage">
-          {{ range $key, $value := .SourceLanguages }} {{ if eq $.From "" }}
-          <option value="{{ .Id }}" {{ if eq .Id $.defaultLang }}selected{{ end }}>
-            {{ .Name }}
-          </option>
-        {{ else }}
-          <option value="{{ .Id }}" {{ if eq $.From .Id }}selected{{ end }}>
-            {{ .Name }}
-          </option>
-          {{ end }} {{ end }}
+          {{ if .SourcePinned }}<optgroup label="★ Pinned">{{ range .SourcePinned }}
+            <option value="{{ .Id }}" {{ if eq $.From .Id }}selected{{ end }}>{{ .Name }}</option>{{ end }}
+          </optgroup>
+          <optgroup label="All languages">{{ end }}{{ range .SourceLanguages }}
+            <option value="{{ .Id }}" {{ if eq $.From .Id }}selected{{ end }}>{{ .Name }}</option>{{ end }}
+          {{ if .SourcePinned }}</optgroup>{{ end }}
         </select>
       </div>
       <div class="switch_languages">
@@ -63,15 +60,12 @@
       </div>
       <div class="language">
         <select name="to" aria-label="Target language" id="targetLanguage">
-          {{ range $key, $value := .TargetLanguages }} {{ if $.To }}
-          <option value="{{ .Id }}" {{ if eq $.To .Id }}selected{{ end }}>
-            {{ .Name }}
-          </option>
-        {{ else }}
-          <option value="{{ .Id }}" {{ if eq .Id $.defaultLangTarget }}selected{{ end }}>
-            {{ .Name }}
-          </option>
-          {{ end }} {{ end }}
+          {{ if .TargetPinned }}<optgroup label="★ Pinned">{{ range .TargetPinned }}
+            <option value="{{ .Id }}" {{ if eq $.To .Id }}selected{{ end }}>{{ .Name }}</option>{{ end }}
+          </optgroup>
+          <optgroup label="All languages">{{ end }}{{ range .TargetLanguages }}
+            <option value="{{ .Id }}" {{ if eq $.To .Id }}selected{{ end }}>{{ .Name }}</option>{{ end }}
+          {{ if .TargetPinned }}</optgroup>{{ end }}
         </select>
       </div>
     </div>

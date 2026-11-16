@@ -189,14 +189,20 @@ func HandleIndex(c *fiber.Ctx) error {
 		cookie.Value = strings.Join(enginesSome.Engines, ",")
 		c.Cookie(cookie)
 	}
+	// MOZHI_PINNED_LANGS: favourite languages first in both selectors.
+	sourcePinned, sourceRest := pinLangs(sourceLanguages, true)
+	targetPinned, targetRest := pinLangs(targetLanguages, false)
+
 	return c.Render("index", fiber.Map{
 		"Engine":            engine,
 		"enginesNames":      engines,
 		"enginesOrder":      enginesOrder,
 		"SomeEngines":       enginesSome.Engines,
 		"SomeEnginesStr":    strings.Join(enginesSome.Engines, ","),
-		"SourceLanguages":   sourceLanguages,
-		"TargetLanguages":   targetLanguages,
+		"SourceLanguages":   sourceRest,
+		"TargetLanguages":   targetRest,
+		"SourcePinned":      sourcePinned,
+		"TargetPinned":      targetPinned,
 		"OriginalText":      originalText,
 		"Translation":       translation,
 		"TranslationExists": translationExists,
@@ -229,4 +235,41 @@ func defaultLangs(source, target []libmozhi.List) (string, string) {
 		to = "en"
 	}
 	return libmozhi.ResolveLang(source, from), libmozhi.ResolveLang(target, to)
+}
+
+// pinLangs moves the MOZHI_PINNED_LANGS languages (matched to this list's
+// codes, in the configured order) to a separate list shown first. With
+// keepAuto, "Detect language" stays the first pinned entry.
+func pinLangs(list []libmozhi.List, keepAuto bool) (pinned, rest []libmozhi.List) {
+	codes := utils.PinnedLangs()
+	if len(codes) == 0 {
+		return nil, list
+	}
+	taken := map[string]bool{}
+	for _, l := range list {
+		if keepAuto && l.Id == "auto" {
+			pinned = append(pinned, l)
+			taken["auto"] = true
+			break
+		}
+	}
+	for _, code := range codes {
+		id := libmozhi.ResolveLang(list, code)
+		if id == "" || taken[id] {
+			continue
+		}
+		for _, l := range list {
+			if l.Id == id {
+				pinned = append(pinned, l)
+				taken[id] = true
+				break
+			}
+		}
+	}
+	for _, l := range list {
+		if !taken[l.Id] {
+			rest = append(rest, l)
+		}
+	}
+	return pinned, rest
 }

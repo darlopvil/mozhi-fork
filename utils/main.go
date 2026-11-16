@@ -132,3 +132,15 @@ func ReadBufferSize() int {
 	}
 	return 1 << 20
 }
+
+// PinnedLangs returns MOZHI_PINNED_LANGS (comma-separated language codes,
+// e.g. "ja,es,en"): languages listed first in the language selectors.
+func PinnedLangs() []string {
+	var codes []string
+	for _, code := range strings.Split(os.Getenv("MOZHI_PINNED_LANGS"), ",") {
+		if code = strings.TrimSpace(code); code != "" {
+			codes = append(codes, code)
+		}
+	}
+	return codes
+}
