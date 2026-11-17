@@ -145,10 +145,11 @@ func PinnedLangs() []string {
 
 // TTSEngineFor returns the engine that reads engine's texts in lang aloud:
 // its own text-to-speech when it has a voice for lang (TexTra only speaks 4
-// languages, Groq 2), otherwise Microsoft's (when its Speech key is set) or
-// Google's; "" when none of them is enabled.
+// languages, Groq 2), otherwise Microsoft's (Azure Speech with its key, or
+// Edge's read-aloud service without one) or Google's; "" when none of them
+// is enabled.
 func TTSEngineFor(engine, lang string) string {
-	speech := EngineEnabled("microsoft") && os.Getenv("MOZHI_MICROSOFT_SPEECH_KEY") != ""
+	speech := EngineEnabled("microsoft") && (os.Getenv("MOZHI_MICROSOFT_SPEECH_KEY") != "" || libmozhi.EdgeTTSEnabled())
 	switch {
 	case engine == "microsoft" && speech, engine == "google",
 		(engine == "textra" || engine == "groq") && libmozhi.TTSSupports(engine, lang):

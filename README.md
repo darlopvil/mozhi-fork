@@ -42,13 +42,13 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - New engines: Gemini, TexTra (NICT, Japanese), Groq, Qwen (through Groq), Cohere, Microsoft Translator (with romanization of non-Latin scripts) and Langbly, plus Papago, ModernMT and Volcengine through the public endpoints of their own web translators.
 - Model preference lists: when a provider retires a model, Gemini, Groq, Qwen and Cohere move on to the next one without touching the configuration (Gemini also when a model is saturated).
 - Dictionary and alternative words: senses, examples and paraphrases from the LLM engines, alternatives from MyMemory, TexTra's system dictionary for Japanese pairs, and Microsoft Translator's dictionary with examples for pairs with English.
-- Text-to-speech with Microsoft (neural voices for most languages), TexTra (Japanese, English, Chinese, Korean) and Groq (English, Arabic), besides Google. Engines without their own text-to-speech are read aloud by Microsoft, or by Google.
+- Text-to-speech with Microsoft (neural voices for most languages, through Azure Speech with a key, and through Edge's read-aloud service, with no key, as its backup or without a key), TexTra (Japanese, English, Chinese, Korean) and Groq (English, Arabic), besides Google. Each side of a translation is read in its own language: by the engine's own voice when it has that language, otherwise by Microsoft, or by Google.
 - Long texts are read aloud in streamed chunks: audio starts as soon as the first chunk is ready.
 - TexTra's small request limit (about 3 requests per 2 minutes for the whole account) is shared sensibly: translation first, the dictionary only when a slot is left, and Google reads the audio when TexTra has no slot.
 - Japanese dictionary: a short Japanese text (a word or a phrase, in the source or in a single engine's translation) gets a panel with Jisho (readings, English senses, JLPT level), jpdb (senses with examples, frequency, conjugated forms), MOJi (pitch accent, romaji, Chinese senses) and Weblio (a Japanese monolingual dictionary), whatever the engine. Also as JSON at `/api/jadict?word=`.
 - Favourite languages pinned at the top of the selectors (`MOZHI_PINNED_LANGS`).
 - Service icons in the engine selector, sorted alphabetically.
-- `/api/health`: the state of every engine, taken from real requests. `?engine=<id>` (plus `&kind=tts` for speech; the dictionaries are `jisho`, `jpdb`, `moji` and `weblio`) answers 503 while that engine is failing, for uptime monitors. An engine that is failing, unused since start or unused for 12 hours is re-checked first with one short request (at most every 2 minutes), so a broken engine shows up even when nobody uses it, and turns green again as soon as it recovers. TexTra is only re-checked when it has slots to spare, and error messages are shown without keys, account ids or IP addresses.
+- `/api/health`: the state of every engine, taken from real requests. `?engine=<id>` (plus `&kind=tts` for speech; the dictionaries are `jisho`, `jpdb`, `moji` and `weblio`, and Edge's voices `edge`) answers 503 while that engine is failing, for uptime monitors. An engine that is failing, unused since start or unused for 12 hours is re-checked first with one short request (at most every 2 minutes), so a broken engine shows up even when nobody uses it, and turns green again as soon as it recovers. TexTra is only re-checked when it has slots to spare, and error messages are shown without keys, account ids or IP addresses.
 
 ## Configuration
 
@@ -87,6 +87,7 @@ MOZHI_MICROSOFT_API_KEY=your_key_here
 # MOZHI_MICROSOFT_SPEECH_KEY=your_key_here    # text-to-speech: an Azure Speech resource (free tier F0: 500,000 characters a month)
 # MOZHI_MICROSOFT_SPEECH_REGION=westeurope    # the Speech resource's region
 # MOZHI_MICROSOFT_TTS_VOICES=ja=ja-JP-NanamiNeural,es=es-ES-ElviraNeural  # optional: voice per language
+# MOZHI_EDGE_ENABLED=false                 # Edge's read-aloud voices (no key): Azure Speech's backup, on by default
 
 # Langbly (langbly.com; 500,000 characters a month free, set a spending limit to never go over it)
 MOZHI_LANGBLY_API_KEY=your_key_here

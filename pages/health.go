@@ -16,7 +16,7 @@ var started = time.Now()
 //
 //	@Summary		Health of the enabled engines and Japanese dictionaries, from real traffic
 //	@Description	Without engine: every enabled engine and dictionary, always 200. With engine: that one only, re-checked first if it is failing, has had no request since start or none for 12 hours (at most every 2 minutes), and 503 while it is failing.
-//	@Param			engine	query	string	false	"Engine or dictionary name (jisho, jpdb, moji, weblio)"
+//	@Param			engine	query	string	false	"Engine or dictionary name (jisho, jpdb, moji, weblio), or edge (Edge's voices)"
 //	@Param			kind	query	string	false	"translate, tts or dict (default: the first one it has)"
 //	@Router			/api/health [get]
 func HandleHealth(c *fiber.Ctx) error {
@@ -26,6 +26,9 @@ func HandleHealth(c *fiber.Ctx) error {
 		for _, id := range append(utils.EnabledEngines(), utils.JaDictSources()...) {
 			engines[id] = libmozhi.EngineHealth(id)
 		}
+		if libmozhi.EdgeTTSEnabled() {
+			engines["edge"] = libmozhi.EngineHealth("edge")
+		}
 		return c.JSON(fiber.Map{"since": started, "engines": engines})
 	}
 	kinds := libmozhi.HealthKinds(engine)
@@ -33,7 +36,7 @@ func HandleHealth(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusBadRequest, "unknown engine "+engine)
 	}
 	// A disabled engine is not a failing one.
-	if !utils.EngineEnabled(engine) && !utils.JaDictEnabled(engine) {
+	if !utils.EngineEnabled(engine) && !utils.JaDictEnabled(engine) && !(engine == "edge" && libmozhi.EdgeTTSEnabled()) {
 		return c.JSON(fiber.Map{"status": "disabled"})
 	}
 	kind := c.Query("kind", kinds[0])
