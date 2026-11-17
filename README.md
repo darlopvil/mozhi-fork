@@ -32,6 +32,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - DuckDuckGo crashed when its token request failed; it now retries on a fresh connection during its blocking windows.
 - Gemini hung when its model was saturated; it now uses the native API and falls back across models.
 - Free LLM models retired by their providers broke their engines until the configuration was edited by hand.
+- The OpenRouter engines (one free pool shared by all its users) and Mistral's free tier (2 requests a minute at most) answered 429 just when they were needed. They were replaced by engines with a quota of their own, or with a public web endpoint that needs no key.
 - The chosen language was lost when switching engines, because each engine names some languages its own way (`es` / `es-ES`, `zh-CN` / `zh-Hans`, `nb` / `no`).
 - TTS links weren't escaped, and `/switchlanguages` answered with a 301 that browsers cached.
 - Only one engine could be disabled at a time (chained `_ENABLED` checks).
@@ -46,7 +47,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - TexTra's small request limit (about 3 requests per 2 minutes for the whole account) is shared sensibly: translation first, the dictionary only when a slot is left, and Google reads the audio when TexTra has no slot.
 - Favourite languages pinned at the top of the selectors (`MOZHI_PINNED_LANGS`).
 - Service icons in the engine selector, sorted alphabetically.
-- `/api/health`: the state of every engine, taken from real requests. `?engine=<id>` (plus `&kind=tts` for speech) answers 503 while that engine is failing, for uptime monitors. An engine that is failing, unused since start or unused for 12 hours is re-checked first with one short request (at most every 2 minutes), so a broken engine shows up even when nobody uses it, and turns green again as soon as it recovers.
+- `/api/health`: the state of every engine, taken from real requests. `?engine=<id>` (plus `&kind=tts` for speech) answers 503 while that engine is failing, for uptime monitors. An engine that is failing, unused since start or unused for 12 hours is re-checked first with one short request (at most every 2 minutes), so a broken engine shows up even when nobody uses it, and turns green again as soon as it recovers. TexTra is only re-checked when it has slots to spare, and error messages are shown without keys, account ids or IP addresses.
 
 ## Configuration
 
