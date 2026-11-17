@@ -14,6 +14,68 @@ definitions:
       translatedTextParsed:
         type: string
     type: object
+  libmozhi.JaDict:
+    properties:
+      entries:
+        items:
+          $ref: '#/definitions/libmozhi.JaDictEntry'
+        type: array
+      error:
+        type: string
+      lang:
+        description: 'language of the senses: en, zh or ja'
+        type: string
+      name:
+        type: string
+      source:
+        type: string
+      url:
+        description: the full entry on the source's website
+        type: string
+    type: object
+  libmozhi.JaDictEntry:
+    properties:
+      accent:
+        description: 'MOJi: pitch accent (⓪ flat, ① ② ... downstep after that mora)'
+        type: string
+      note:
+        description: 'jpdb: "Conjugated as: past"; Weblio: grammar line'
+        type: string
+      reading:
+        type: string
+      romaji:
+        type: string
+      senses:
+        items:
+          $ref: '#/definitions/libmozhi.JaDictSense'
+        type: array
+      tags:
+        items:
+          type: string
+        type: array
+      word:
+        type: string
+    type: object
+  libmozhi.JaDictExample:
+    properties:
+      japanese:
+        type: string
+      translation:
+        type: string
+    type: object
+  libmozhi.JaDictSense:
+    properties:
+      examples:
+        items:
+          $ref: '#/definitions/libmozhi.JaDictExample'
+        type: array
+      glosses:
+        items:
+          type: string
+        type: array
+      pos:
+        type: string
+    type: object
   libmozhi.LangOut:
     properties:
       detected:
@@ -103,6 +165,25 @@ paths:
               type: string
             type: object
       summary: List engines
+  /api/health:
+    get:
+      description: 'Without engine: every enabled engine and dictionary, always 200.
+        With engine: that one only, re-checked first if it is failing, has had no
+        request since start or none for 12 hours (at most every 2 minutes), and 503
+        while it is failing.'
+      parameters:
+      - description: Engine or dictionary name (jisho, jpdb, moji, weblio), or edge
+          (Edge's voices)
+        in: query
+        name: engine
+        type: string
+      - description: 'translate, tts or dict (default: the first one it has)'
+        in: query
+        name: kind
+        type: string
+      responses: {}
+      summary: Health of the enabled engines and Japanese dictionaries, from real
+        traffic
   /api/image:
     post:
       description: When engine is set to all, it will return an array of libmozhi.LangOut.
@@ -133,6 +214,28 @@ paths:
           schema:
             $ref: '#/definitions/libmozhi.ImgOut'
       summary: Translate an image
+  /api/jadict:
+    get:
+      description: Jisho, jpdb, MOJi and Weblio, at once. A source that doesn't have
+        the word answers no entries; one that fails answers its error.
+      parameters:
+      - description: Japanese word or short phrase (at most 15 characters)
+        in: query
+        name: word
+        required: true
+        type: string
+      - description: 'Comma-separated sources (default: every enabled one)'
+        in: query
+        name: sources
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/libmozhi.JaDict'
+            type: array
+      summary: Look up a Japanese word in the Japanese dictionaries
   /api/source_languages:
     get:
       parameters:

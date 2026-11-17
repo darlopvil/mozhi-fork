@@ -21,6 +21,27 @@
                 }
             }
         },
+        "/api/health": {
+            "get": {
+                "description": "Without engine: every enabled engine and dictionary, always 200. With engine: that one only, re-checked first if it is failing, has had no request since start or none for 12 hours (at most every 2 minutes), and 503 while it is failing.",
+                "summary": "Health of the enabled engines and Japanese dictionaries, from real traffic",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Engine or dictionary name (jisho, jpdb, moji, weblio), or edge (Edge's voices)",
+                        "name": "engine",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "translate, tts or dict (default: the first one it has)",
+                        "name": "kind",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/api/image": {
             "post": {
                 "description": "When engine is set to all, it will return an array of libmozhi.LangOut.",
@@ -60,6 +81,38 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/libmozhi.ImgOut"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/jadict": {
+            "get": {
+                "description": "Jisho, jpdb, MOJi and Weblio, at once. A source that doesn't have the word answers no entries; one that fails answers its error.",
+                "summary": "Look up a Japanese word in the Japanese dictionaries",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Japanese word or short phrase (at most 15 characters)",
+                        "name": "word",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Comma-separated sources (default: every enabled one)",
+                        "name": "sources",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/libmozhi.JaDict"
+                            }
                         }
                     }
                 }
@@ -203,6 +256,99 @@
                     "type": "string"
                 },
                 "translatedTextParsed": {
+                    "type": "string"
+                }
+            }
+        },
+        "libmozhi.JaDict": {
+            "type": "object",
+            "properties": {
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/libmozhi.JaDictEntry"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "lang": {
+                    "description": "language of the senses: en, zh or ja",
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "url": {
+                    "description": "the full entry on the source's website",
+                    "type": "string"
+                }
+            }
+        },
+        "libmozhi.JaDictEntry": {
+            "type": "object",
+            "properties": {
+                "accent": {
+                    "description": "MOJi: pitch accent (⓪ flat, ① ② ... downstep after that mora)",
+                    "type": "string"
+                },
+                "note": {
+                    "description": "jpdb: \"Conjugated as: past\"; Weblio: grammar line",
+                    "type": "string"
+                },
+                "reading": {
+                    "type": "string"
+                },
+                "romaji": {
+                    "type": "string"
+                },
+                "senses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/libmozhi.JaDictSense"
+                    }
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "word": {
+                    "type": "string"
+                }
+            }
+        },
+        "libmozhi.JaDictExample": {
+            "type": "object",
+            "properties": {
+                "japanese": {
+                    "type": "string"
+                },
+                "translation": {
+                    "type": "string"
+                }
+            }
+        },
+        "libmozhi.JaDictSense": {
+            "type": "object",
+            "properties": {
+                "examples": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/libmozhi.JaDictExample"
+                    }
+                },
+                "glosses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "pos": {
                     "type": "string"
                 }
             }
