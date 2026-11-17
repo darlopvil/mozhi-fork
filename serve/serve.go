@@ -110,6 +110,7 @@ func Serve(host, port string) {
 	api.Get("/engines", pages.HandleEngines)
 	api.Get("/tts", pages.HandleTTS)
 	api.Get("/health", pages.HandleHealth)
+	api.Get("/jadict", pages.HandleJaDict)
 	api.Get("/version", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
 			"fiberversion": fiber.Version,

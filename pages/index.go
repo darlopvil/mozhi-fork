@@ -139,7 +139,10 @@ func HandleIndex(c *fiber.Ctx) error {
 	var tlerr error
 	var ttsFrom string
 	var ttsTo string
+	var jaDict jaDictView
 	if engine != "" && originalText != "" && from != "" && to != "" {
+		// A Japanese word gets a dictionary panel, whatever the engine.
+		jaDictStarted := jaDictStart(from, originalText)
 		if engine == "all" {
 			// Only the engines enabled on this instance.
 			transmany, _ = libmozhi.TranslateSome(utils.EnabledEngines(), to, from, originalText)
@@ -170,6 +173,7 @@ func HandleIndex(c *fiber.Ctx) error {
 				ttsTo = ttsURL(to, e, translation.OutputText)
 			}
 		}
+		jaDict = jaDictFinish(jaDictStarted, from, to, originalText, translation, engine != "all" && engine != "some")
 	} else {
 		translationExists = false
 	}
@@ -218,6 +222,7 @@ func HandleIndex(c *fiber.Ctx) error {
 		"To":                to,
 		"TtsFrom":           ttsFrom,
 		"TtsTo":             ttsTo,
+		"JaDict":            jaDict,
 		"defaultLang":       defaultLang,
 		"defaultLangTarget": defaultLangTarget,
 	})

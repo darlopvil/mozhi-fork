@@ -45,9 +45,10 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - Text-to-speech with Microsoft (neural voices for most languages), TexTra (Japanese, English, Chinese, Korean) and Groq (English, Arabic), besides Google. Engines without their own text-to-speech are read aloud by Microsoft, or by Google.
 - Long texts are read aloud in streamed chunks: audio starts as soon as the first chunk is ready.
 - TexTra's small request limit (about 3 requests per 2 minutes for the whole account) is shared sensibly: translation first, the dictionary only when a slot is left, and Google reads the audio when TexTra has no slot.
+- Japanese dictionary: a short Japanese text (a word or a phrase, in the source or in a single engine's translation) gets a panel with Jisho (readings, English senses, JLPT level), jpdb (senses with examples, frequency, conjugated forms), MOJi (pitch accent, romaji, Chinese senses) and Weblio (a Japanese monolingual dictionary), whatever the engine. Also as JSON at `/api/jadict?word=`.
 - Favourite languages pinned at the top of the selectors (`MOZHI_PINNED_LANGS`).
 - Service icons in the engine selector, sorted alphabetically.
-- `/api/health`: the state of every engine, taken from real requests. `?engine=<id>` (plus `&kind=tts` for speech) answers 503 while that engine is failing, for uptime monitors. An engine that is failing, unused since start or unused for 12 hours is re-checked first with one short request (at most every 2 minutes), so a broken engine shows up even when nobody uses it, and turns green again as soon as it recovers. TexTra is only re-checked when it has slots to spare, and error messages are shown without keys, account ids or IP addresses.
+- `/api/health`: the state of every engine, taken from real requests. `?engine=<id>` (plus `&kind=tts` for speech; the dictionaries are `jisho`, `jpdb`, `moji` and `weblio`) answers 503 while that engine is failing, for uptime monitors. An engine that is failing, unused since start or unused for 12 hours is re-checked first with one short request (at most every 2 minutes), so a broken engine shows up even when nobody uses it, and turns green again as soon as it recovers. TexTra is only re-checked when it has slots to spare, and error messages are shown without keys, account ids or IP addresses.
 
 ## Configuration
 
@@ -93,6 +94,9 @@ MOZHI_LANGBLY_API_KEY=your_key_here
 # MyMemory (optional: an email raises the daily quota)
 # MOZHI_MYMEMORY_EMAIL=you@example.com
 
+# Japanese dictionaries (no keys): on by default
+# MOZHI_JISHO_ENABLED=false                # also MOZHI_JPDB_, MOZHI_MOJI_ and MOZHI_WEBLIO_ENABLED
+
 # General
 # MOZHI_PORT=3000                            # MOZHI_HOST: interface to listen on (all by default)
 # MOZHI_DEFAULT_ENGINE=google
@@ -104,6 +108,7 @@ MOZHI_LANGBLY_API_KEY=your_key_here
 
 Any engine can be disabled with `MOZHI_<ID>_ENABLED=false` (web UI, API, All mode and TTS at once).
 IDs: `google deepl duckduckgo mymemory yandex gemini textra groq qwen cohere microsoft langbly papago modernmt volcengine`.
+Japanese dictionaries: `jisho jpdb moji weblio`.
 
 The API is documented with Swagger at `/api/swagger/index.html` on the instance.
 

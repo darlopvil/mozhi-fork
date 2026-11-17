@@ -1,0 +1,32 @@
+{{ if .JaDict.Results }}
+<div class="jadict">
+  <h3 class="jadict-title">Japanese dictionary: <span lang="ja">{{ .JaDict.Word }}</span></h3>
+  {{ range $src := .JaDict.Results }}
+  <section class="jadict-source">
+    <h4><img src="/assets/icons/{{ $src.Source }}.png" onerror="this.style.display='none'" class="engine-icon" alt=""><a href="{{ $src.URL }}" target="_blank" rel="noopener noreferrer">{{ $src.Name }}</a></h4>
+    {{ range $src.Entries }}
+    <div class="jadict-entry">
+      <span class="jadict-word" lang="ja">{{ .Word }}</span>
+      {{ if .Reading }}<span class="jadict-reading" lang="ja">【{{ .Reading }}】</span>{{ end }}
+      {{ if .Romaji }}<span class="jadict-romaji">{{ .Romaji }}</span>{{ end }}
+      {{ if .Accent }}<span class="jadict-tag" title="Pitch accent: ⓪ flat, ① ② … drops after that mora">accent {{ .Accent }}</span>{{ end }}
+      {{ range .Tags }}<span class="jadict-tag">{{ . }}</span>{{ end }}
+      {{ if .Note }}<div class="jadict-note" lang="{{ $src.Lang }}">{{ .Note }}</div>{{ end }}
+      <ol>
+        {{ range .Senses }}
+        <li lang="{{ $src.Lang }}">
+          {{ if .POS }}<span class="syn_type">{{ .POS }}</span><br>{{ end }}
+          {{ range $i, $g := .Glosses }}{{ if $i }}{{ if eq $src.Lang "en" }}; {{ else }}<br>{{ end }}{{ end }}{{ $g }}{{ end }}
+          {{ range .Examples }}
+          <br><span class="use_in_sentence" lang="ja">{{ .Japanese }}</span>
+          {{ if .Translation }}<br><span class="use_in_sentence" lang="en">{{ .Translation }}</span>{{ end }}
+          {{ end }}
+        </li>
+        {{ end }}
+      </ol>
+    </div>
+    {{ end }}
+  </section>
+  {{ end }}
+</div>
+{{ end }}

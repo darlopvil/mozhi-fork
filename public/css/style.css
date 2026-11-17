@@ -369,3 +369,70 @@ div.translations {
   margin-right: 0.4em;
   border-radius: 2px;
 }
+
+/* Japanese dictionary panel (Jisho, jpdb, MOJi, Weblio) */
+.jadict {
+  margin: 1.5rem auto;
+  max-width: 1000px;
+  text-align: left;
+}
+
+.jadict-title {
+  color: var(--accent-color);
+}
+
+.jadict-source {
+  border-top: 1px solid var(--main-border-color);
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.jadict-source h4 {
+  margin: 0.25rem 0;
+}
+
+.jadict-source h4 a {
+  color: inherit;
+}
+
+.jadict-entry {
+  margin: 0.5rem 0 0.75rem;
+}
+
+.jadict-word {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.jadict-reading {
+  font-size: 1.1em;
+}
+
+.jadict-romaji {
+  margin-left: 0.4em;
+  opacity: 0.8;
+}
+
+.jadict-tag {
+  border: 1px solid var(--main-border-color);
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 0.8em;
+  line-height: 1.5;
+  margin-left: 0.4em;
+  padding: 0 0.4em;
+}
+
+.jadict-note {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.jadict ol {
+  margin: 0.25rem 0;
+  padding-left: 1.5rem;
+}
+
+.jadict li {
+  margin-bottom: 0.35rem;
+}
