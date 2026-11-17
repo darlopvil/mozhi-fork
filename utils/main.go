@@ -143,13 +143,15 @@ func PinnedLangs() []string {
 	return codes
 }
 
-// TTSEngineFor returns the engine that reads engine's texts aloud: its own
-// text-to-speech when it has one, otherwise Microsoft's (when its Speech key
-// is set) or Google's; "" when none of them is enabled.
-func TTSEngineFor(engine string) string {
+// TTSEngineFor returns the engine that reads engine's texts in lang aloud:
+// its own text-to-speech when it has a voice for lang (TexTra only speaks 4
+// languages, Groq 2), otherwise Microsoft's (when its Speech key is set) or
+// Google's; "" when none of them is enabled.
+func TTSEngineFor(engine, lang string) string {
 	speech := EngineEnabled("microsoft") && os.Getenv("MOZHI_MICROSOFT_SPEECH_KEY") != ""
 	switch {
-	case engine == "microsoft" && speech, engine == "google", engine == "textra", engine == "groq":
+	case engine == "microsoft" && speech, engine == "google",
+		(engine == "textra" || engine == "groq") && libmozhi.TTSSupports(engine, lang):
 		return engine
 	case speech:
 		return "microsoft"
