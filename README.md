@@ -36,6 +36,8 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - The chosen language was lost when switching engines, because each engine names some languages its own way (`es` / `es-ES`, `zh-CN` / `zh-Hans`, `nb` / `no`).
 - TTS links weren't escaped, and `/switchlanguages` answered with a 301 that browsers cached.
 - Only one engine could be disabled at a time (chained `_ENABLED` checks).
+- Yandex showed its error page ("Request-URI Too Large") as the transliteration of long texts, and swapped the source and target transliterations.
+- TexTra and Groq voices were offered for languages they don't speak, so the other side of a translation never played; their WAV audio showed a duration of tens of hours.
 
 ## Features
 
