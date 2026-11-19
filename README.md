@@ -38,6 +38,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - Only one engine could be disabled at a time (chained `_ENABLED` checks).
 - Yandex showed its error page ("Request-URI Too Large") as the transliteration of long texts, and swapped the source and target transliterations.
 - TexTra and Groq voices were offered for languages they don't speak, so the other side of a translation never played; their WAV audio showed a duration of tens of hours.
+- When TexTra was down (e.g. a maintenance), its voice went silent and /api/health only said "no access token": now Google reads instead, and the error says why (under maintenance, the token endpoint's status, or TexTra's reason).
 
 ## Features
 
