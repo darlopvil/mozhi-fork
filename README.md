@@ -33,6 +33,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - Gemini hung when its model was saturated; it now uses the native API and falls back across models.
 - Free LLM models retired by their providers broke their engines until the configuration was edited by hand.
 - The OpenRouter engines (one free pool shared by all its users) and Mistral's free tier (2 requests a minute at most) answered 429 just when they were needed. They were replaced by engines with a quota of their own, or with a public web endpoint that needs no key.
+- ModernMT's web translator stopped answering ("your account status is suspended"): ModernMT turns into Lara, which is paid, and closes at the end of 2026, so the engine was removed.
 - The chosen language was lost when switching engines, because each engine names some languages its own way (`es` / `es-ES`, `zh-CN` / `zh-Hans`, `nb` / `no`).
 - TTS links weren't escaped, and `/switchlanguages` answered with a 301 that browsers cached.
 - Only one engine could be disabled at a time (chained `_ENABLED` checks).
@@ -42,7 +43,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 
 ## Features
 
-- New engines: Gemini, TexTra (NICT, Japanese), Groq, Qwen (through Groq), Cohere, Microsoft Translator (with romanization of non-Latin scripts) and Langbly, plus Papago, ModernMT and Volcengine through the public endpoints of their own web translators.
+- New engines: Gemini, TexTra (NICT, Japanese), Groq, Qwen (through Groq), Cohere, Microsoft Translator (with romanization of non-Latin scripts) and Langbly, plus Papago and Volcengine through the public endpoints of their own web translators.
 - Model preference lists: when a provider retires a model, Gemini, Groq, Qwen and Cohere move on to the next one without touching the configuration (Gemini also when a model is saturated).
 - Dictionary and alternative words: senses, examples and paraphrases from the LLM engines, alternatives from MyMemory, TexTra's system dictionary for Japanese pairs, and Microsoft Translator's dictionary with examples for pairs with English.
 - Text-to-speech with Microsoft (neural voices for most languages, through Azure Speech with a key, and through Edge's read-aloud service, with no key, as its backup or without a key), TexTra (Japanese, English, Chinese, Korean) and Groq (English, Arabic), besides Google. Each side of a translation is read in its own language: by the engine's own voice when it has that language, otherwise by Microsoft, or by Google.
@@ -111,7 +112,7 @@ MOZHI_LANGBLY_API_KEY=your_key_here
 ```
 
 Any engine can be disabled with `MOZHI_<ID>_ENABLED=false` (web UI, API, All mode and TTS at once).
-IDs: `google deepl duckduckgo mymemory yandex gemini textra groq qwen cohere microsoft langbly papago modernmt volcengine`.
+IDs: `google deepl duckduckgo mymemory yandex gemini textra groq qwen cohere microsoft langbly papago volcengine`.
 Japanese dictionaries: `jisho jpdb moji weblio`.
 
 The API is documented with Swagger at `/api/swagger/index.html` on the instance.
