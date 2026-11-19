@@ -65,7 +65,7 @@ MOZHI_DEEPL_API_KEY=your_key_here            # deepl.com/pro-api
 
 # Gemini (aistudio.google.com, free, no card)
 MOZHI_GEMINI_API_KEY=your_key_here
-# MOZHI_GEMINI_MODEL=gemini-3.5-flash,gemini-flash-lite-latest,gemini-flash-latest  # optional: preference list
+# MOZHI_GEMINI_MODEL=gemini-3.5-flash,gemini-flash-lite-latest,gemini-flash-latest,gemini-3.1-flash-lite,gemini-3.5-flash-lite  # optional: preference list
 
 # TexTra / NICT (mt-auto-minhon-mlt.ucri.jgn-x.jp, free registration)
 MOZHI_TEXTRA_API_KEY=your_key_here
