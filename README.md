@@ -34,6 +34,7 @@ License: AGPL-3.0, same as upstream ([LICENSE](LICENSE)).
 - Free LLM models retired by their providers broke their engines until the configuration was edited by hand.
 - The OpenRouter engines (one free pool shared by all its users) and Mistral's free tier (2 requests a minute at most) answered 429 just when they were needed. They were replaced by engines with a quota of their own, or with a public web endpoint that needs no key.
 - ModernMT's web translator stopped answering ("your account status is suspended"): ModernMT turns into Lara, which is paid, and closes at the end of 2026, so the engine was removed.
+- When every Gemini Flash model was overloaded at once, Gemini failed: its model list now ends with two lite models, the whole list is tried, and the error says what each model answered.
 - The chosen language was lost when switching engines, because each engine names some languages its own way (`es` / `es-ES`, `zh-CN` / `zh-Hans`, `nb` / `no`).
 - TTS links weren't escaped, and `/switchlanguages` answered with a 301 that browsers cached.
 - Only one engine could be disabled at a time (chained `_ENABLED` checks).
